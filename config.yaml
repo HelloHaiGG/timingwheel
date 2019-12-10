@@ -1,0 +1,13 @@
+servers:
+  order: "order-server"
+  finance: "finance-server"
+  gaetway: "gateway-server"
+
+l_topic:
+  order: "Log-Kafka-Topic-Order"
+  finance: "Log-Kafka-Topic-Finance"
+  gaetway: "Log-Kafka-Topic-GetWay"
+
+kafka:
+  hosts: [127.0.0.1]
+  port: 9092
