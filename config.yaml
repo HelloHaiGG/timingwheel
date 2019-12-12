@@ -9,5 +9,5 @@ l_topic:
   gaetway: "Log-Kafka-Topic-GetWay"
 
 kafka:
-  hosts: [127.0.0.1]
-  port: 9092
+  brokers: [127.0.0.1:9092]
+  timeout: 5

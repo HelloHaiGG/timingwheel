@@ -1,8 +1,8 @@
 package main
 
 import (
-	"HelloMyWorld/ILogger"
-	"HelloMyWorld/ILogger/collect"
+	"HelloMyWorld/common/ILogger"
+	"HelloMyWorld/common/ILogger/collect"
 	"HelloMyWorld/config"
 	"testing"
 	"time"

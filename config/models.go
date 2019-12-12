@@ -1,5 +1,6 @@
 package config
-type AppCfg struct {
+
+type appCfg struct {
 	LTopic  LogTopic `yaml:"l_topic"`
 	Kafka   KafkaCfg `yaml:"kafka"`
 	Servers Servers  `yaml:"servers"`
@@ -12,8 +13,8 @@ type LogTopic struct {
 }
 
 type KafkaCfg struct {
-	Hosts []string `yaml:"hosts"`
-	Port  int      `yaml:"port"`
+	Brokers []string `yaml:"brokers"`
+	Timeout int      `yaml:"timeout"`
 }
 
 type Servers struct {

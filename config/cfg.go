@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var APPConfig AppCfg
+var APPConfig appCfg
 
 //解析配置文件
 func Init() {

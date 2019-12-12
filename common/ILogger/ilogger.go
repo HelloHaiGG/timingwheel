@@ -23,7 +23,7 @@ func Init(server string) *ILogger {
 	//设置输出位置
 	// 本地调试 running = ""，打印到标准输出
 	// 线上调试 running = 1，输出到日志文件
-	if os.Getenv("RUNNING") == "1" {
+	if os.Getenv("RUNNING") == "" {
 		//设置为json格式
 		iLogger.instance.SetFormatter(&logrus.JSONFormatter{
 			TimestampFormat: "2006-01-02 15:04:05",
@@ -35,10 +35,10 @@ func Init(server string) *ILogger {
 			}})
 		path, _ := os.Getwd()
 		iLogger.instance.SetOutput(&lumberjack.Logger{
-			Filename: path + fmt.Sprintf("\\logs\\%s.txt", server),
+			Filename: path + fmt.Sprintf("/logs/%s.txt", server),
 			MaxSize:  200, //最大 分割
 		})
-		fmt.Println(path)
+
 	} else {
 		iLogger.instance.SetFormatter(&logrus.TextFormatter{
 			ForceColors:     true,

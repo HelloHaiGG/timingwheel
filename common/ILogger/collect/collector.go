@@ -19,7 +19,7 @@ func InitCollector(server, topic string) *Collector {
 	} else {
 		c.Topic = topic
 		path, _ := os.Getwd()
-		c.Path = path + fmt.Sprintf("\\logs\\%s.txt", server)
+		c.Path = path + fmt.Sprintf("/logs/%s.txt", server)
 	}
 	return c
 }
