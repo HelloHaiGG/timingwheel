@@ -6,7 +6,7 @@ servers:
 l_topic:
   order: "Log-Kafka-Topic-Order"
   finance: "Log-Kafka-Topic-Finance"
-  gaetway: "Log-Kafka-Topic-GetWay"
+  gateway: "Log-Kafka-Topic-GetWay"
 
 kafka:
   brokers: [127.0.0.1:9092]
