@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/ILogger/ihooks.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manager_log_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/ILogger/collect/collector.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ILogger/collect/collector.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/ILogger/ilogger.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ILogger/ilogger.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/ILogger/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ILogger/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iKafka/ikafka.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iKafka/ikafka.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilogger_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ilogger_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka_consumer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_consumer_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka_productor_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_productor_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/order-server.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/order-server.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,6 +59,17 @@
     </option>
   </component>
   <component name="RunManager" selected="Go Test.TestInitCollector in HelloMyWorld">
+    <configuration name="TestInfo in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="HelloMyWorld" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="HelloMyWorld" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestInfo$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestInitCollector in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -112,24 +114,13 @@
       <pattern value="^TestManager_Log$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestManager_log in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestManager_log$" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Test.TestInitCollector in HelloMyWorld" />
         <item itemvalue="Go Test.TestManager_Log in HelloMyWorld" />
+        <item itemvalue="Go Test.TestInfo in HelloMyWorld" />
         <item itemvalue="Go Test.TestKafka_Producer in HelloMyWorld" />
         <item itemvalue="Go Test.TestKafka_GroupConsumer in HelloMyWorld" />
-        <item itemvalue="Go Test.TestManager_log in HelloMyWorld" />
       </list>
     </recent_temporary>
   </component>
