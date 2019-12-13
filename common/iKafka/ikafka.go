@@ -6,6 +6,7 @@ import (
 	"github.com/Shopify/sarama"
 	cluster "github.com/bsm/sarama-cluster"
 	"log"
+	"sync"
 	"time"
 )
 
@@ -65,7 +66,7 @@ func Init() {
 			case suc = <-msg:
 				value, _ = suc.Value.Encode()
 				key, _ = suc.Key.Encode()
-				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=\"%s\";key=\"%s\";value=\"%s\"\n", suc.Timestamp, suc.Topic, key, value)
+				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=\"%s\";key=\"%s\";value=\"%s\".\n", suc.Timestamp, suc.Topic, key, value)
 			}
 		}
 	})
@@ -79,7 +80,7 @@ func Init() {
 			case err = <-errors:
 				value, _ = err.Msg.Value.Encode()
 				key, _ = err.Msg.Key.Encode()
-				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=\"%s\";key=\"%s\";value=\"%s\"!\n", err.Msg.Timestamp, err.Msg.Topic, key, value)
+				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=\"%s\";key=\"%s\";value=\"%s\".\n", err.Msg.Timestamp, err.Msg.Topic, key, value)
 			}
 		}
 	})
@@ -89,7 +90,7 @@ func Init() {
 func (p *KafkaCli) newAsyncProducer() {
 	producer, err := sarama.NewAsyncProducer(config.APPConfig.Kafka.Brokers, p.cfg)
 	if err != nil {
-		log.Fatal("异步生产者初始失败")
+		log.Fatal("异步生产者初始失败.")
 		return
 	}
 	p.asyncProducer = producer
@@ -99,7 +100,7 @@ func (p *KafkaCli) newAsyncProducer() {
 func (p *KafkaCli) newSyncProducer() {
 	producer, err := sarama.NewSyncProducer(config.APPConfig.Kafka.Brokers, p.cfg)
 	if err != nil {
-		log.Fatal("同步生产者初始失败")
+		log.Fatal("同步生产者初始失败.")
 		return
 	}
 	p.syncProducer = producer
@@ -109,9 +110,10 @@ func (p *KafkaCli) newSyncProducer() {
 func (p *KafkaCli) ASyncSendMsg(msg *KafkaMsg) {
 	//封装成 message
 	kafkaMsg := &sarama.ProducerMessage{
-		Topic: msg.Topic,
-		Key:   sarama.StringEncoder(msg.Key),
-		Value: sarama.StringEncoder(msg.Value),
+		Topic:     msg.Topic,
+		Key:       sarama.StringEncoder(msg.Key),
+		Value:     sarama.StringEncoder(msg.Value),
+		Timestamp: time.Now(),
 	}
 
 	fmt.Println(p.cfg.Version)
@@ -129,6 +131,7 @@ func (p *KafkaCli) SyncSendMsg(msg []*KafkaMsg) error {
 		sMsg[e].Topic = msg[e].Topic
 		sMsg[e].Offset = msg[e].Offset
 		sMsg[e].Partition = msg[e].Partition
+		sMsg[e].Timestamp = time.Now()
 	}
 	return p.syncProducer.SendMessages(sMsg)
 }
@@ -142,6 +145,7 @@ func (p *KafkaCli) SyncSendOneMsg(msg *KafkaMsg) (partition int32, offset int64,
 		Value:     sarama.StringEncoder(msg.Value),
 		Partition: msg.Partition,
 		Offset:    msg.Offset,
+		Timestamp: time.Now(),
 	}
 	return p.syncProducer.SendMessage(sMsg)
 }
@@ -156,7 +160,7 @@ func (p *KafkaCli) GroupListenToKafka(brokers []string, groupId string, topics [
 	cfg.Version = sarama.V2_3_0_0
 	c, err := cluster.NewConsumer(brokers, groupId, topics, cfg)
 	if err != nil {
-		log.Fatal("初始化消费者失败!")
+		log.Fatal("初始化消费组失败.")
 		return
 	}
 	//
@@ -168,11 +172,45 @@ func (p *KafkaCli) GroupListenToKafka(brokers []string, groupId string, topics [
 		}
 	}()
 	handler(c)
+	defer c.Close()
 }
 
 //消费者 非消费组
-func (p *KafkaCli) ListenToKafka() {
+func (p *KafkaCli) ListenToKafka(brokers []string, topic string, handler func(consumer sarama.PartitionConsumer)) {
+	cfg := sarama.NewConfig()
+	cfg.Consumer.Return.Errors = true
+	cfg.Version = sarama.V2_3_0_0
 
+	//创建消费者实例
+	c, err := sarama.NewConsumer(brokers, cfg)
+	if err != nil {
+		log.Fatal("初始化消费者失败.")
+	}
+	defer c.Close()
+	//获取该topic所在的所以分区
+	partitions, err := c.Partitions(topic)
+	if err != nil {
+		log.Fatal("消费者获取分区失败.")
+		return
+	}
+	var pc sarama.PartitionConsumer
+	wg := &sync.WaitGroup{}
+	//在每个分区拉取消息
+	for e := range partitions {
+		pc, err = c.ConsumePartition(topic, partitions[e], sarama.OffsetNewest)
+		if err != nil {
+			continue
+		}
+		//记录存在消息的分区数量
+		wg.Add(1)
+		//拉去消息
+		go func() {
+			handler(pc)
+			wg.Done()
+			defer pc.AsyncClose()
+		}()
+	}
+	wg.Wait()
 }
 
 //处理错误

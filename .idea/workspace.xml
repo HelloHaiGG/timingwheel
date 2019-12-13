@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/kafka_consumer_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kafka_productor_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ILogger/collect/collector.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ILogger/collect/collector.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ILogger/ilogger.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ILogger/ilogger.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ILogger/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ILogger/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cfg.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/cfg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilogger_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ilogger_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/iKafka/ikafka.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iKafka/ikafka.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_consumer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_consumer_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_productor_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_productor_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,11 +31,12 @@
   <component name="ProjectId" id="1UmCRTg9kWOaPGdMYm1LXGtGRgy" />
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../seekspider_data_export" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">

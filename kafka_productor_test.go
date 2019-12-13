@@ -9,6 +9,7 @@ import (
 func TestKafka_Producer(t *testing.T) {
 	config.Init()
 	iKafka.Init()
+	defer iKafka.Kafka.Close()
 	//异步发送数据
 	iKafka.Kafka.ASyncSendMsg(&iKafka.KafkaMsg{
 		Topic: "log-msg",
