@@ -11,7 +11,7 @@ import (
 
 func TestKafka_GroupConsumer(t *testing.T) {
 	config.Init()
-	iKafka.Init()
+	//iKafka.Init()
 	iKafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers, "group-log", []string{"log-msg"}, func(cs *cluster.Consumer) {
 		for {
 			select {
@@ -25,7 +25,7 @@ func TestKafka_GroupConsumer(t *testing.T) {
 }
 func TestKafka_Consumer(t *testing.T) {
 	config.Init()
-	iKafka.Init()
+	iKafka.Init(config.APPConfig.Kafka.Brokers)
 	iKafka.Kafka.ListenToKafka(config.APPConfig.Kafka.Brokers, "log-msg", func(pc sarama.PartitionConsumer) {
 		for {
 			select {

@@ -6,6 +6,5 @@ type LogMsg struct {
 	Where string `json:"where"`
 	What  string `json:"what"`
 	Level string `json:"level"`
-	Func  string `json:"func"`
 }
 

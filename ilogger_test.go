@@ -4,6 +4,7 @@ import (
 	"HelloMyWorld/common/ILogger"
 	"HelloMyWorld/common/ILogger/collect"
 	"HelloMyWorld/config"
+	"fmt"
 	"testing"
 	"time"
 )
@@ -13,9 +14,11 @@ func TestInitCollector(t *testing.T) {
 
 	//初始化配置
 	config.Init()
-
-	c := collect.InitCollector(config.APPConfig.Servers.Order, config.APPConfig.LTopic.Order)
-	c.Start()
+	ILogger.ToFile = true
+	err := collect.InitCollectorAndStart(config.APPConfig.Servers.Order, config.APPConfig.LTopic.Order)
+	if err != nil{
+		fmt.Println(err)
+	}
 
 	time.Sleep(time.Second)
 	logger := ILogger.Init(config.APPConfig.Servers.Order)
@@ -23,9 +26,9 @@ func TestInitCollector(t *testing.T) {
 	logger.Info("This ILogger error")
 	logger.Info("This ILogger error")
 	logger.Info("This ILogger error")
+	logger.Debug("This ILogger error")
 	logger.Info("This ILogger error")
-	logger.Info("This ILogger error")
-	logger.Info("This ILogger error")
+	logger.Warn("This ILogger error")
 	logger.Info("This ILogger error")
 	logger.Info("This ILogger error")
 	logger.Info("This ILogger error")

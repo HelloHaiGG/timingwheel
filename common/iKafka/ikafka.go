@@ -10,9 +10,9 @@ import (
 	"time"
 )
 
-var Kafka KafkaCli
+var Kafka kafkaCli
 
-type KafkaCli struct {
+type kafkaCli struct {
 	//异步 不等待确认
 	asyncProducer sarama.AsyncProducer
 	//同步 确认之前阻塞
@@ -29,7 +29,7 @@ type KafkaMsg struct {
 	Offset    int64
 }
 
-func Init() {
+func Init(broker []string) {
 	cfg := sarama.NewConfig()
 	//等待所有服务返回相应结果(主从服务器)
 	cfg.Producer.RequiredAcks = sarama.WaitForAll
@@ -48,13 +48,13 @@ func Init() {
 
 	//消费者生产者版本要一致 ！！！
 	cfg.Version = sarama.V2_3_0_0
-	Kafka = KafkaCli{
+	Kafka = kafkaCli{
 		cfg: cfg,
 	}
 	//初始化异步生产者
-	Kafka.newAsyncProducer()
+	Kafka.newAsyncProducer(broker)
 	//初始化同步生存者
-	Kafka.newSyncProducer()
+	Kafka.newSyncProducer(broker)
 
 	//监听发送结果
 	go Kafka.HandResult(func(msg <-chan *sarama.ProducerMessage) {
@@ -87,8 +87,8 @@ func Init() {
 }
 
 //初始化异步生产者
-func (p *KafkaCli) newAsyncProducer() {
-	producer, err := sarama.NewAsyncProducer(config.APPConfig.Kafka.Brokers, p.cfg)
+func (p *kafkaCli) newAsyncProducer(broker []string) {
+	producer, err := sarama.NewAsyncProducer(broker, p.cfg)
 	if err != nil {
 		log.Fatal("异步生产者初始失败.")
 		return
@@ -97,8 +97,8 @@ func (p *KafkaCli) newAsyncProducer() {
 }
 
 //初始化同步生产者
-func (p *KafkaCli) newSyncProducer() {
-	producer, err := sarama.NewSyncProducer(config.APPConfig.Kafka.Brokers, p.cfg)
+func (p *kafkaCli) newSyncProducer(broker []string) {
+	producer, err := sarama.NewSyncProducer(broker, p.cfg)
 	if err != nil {
 		log.Fatal("同步生产者初始失败.")
 		return
@@ -107,7 +107,7 @@ func (p *KafkaCli) newSyncProducer() {
 }
 
 //异步发送Msg
-func (p *KafkaCli) ASyncSendMsg(msg *KafkaMsg) {
+func (p *kafkaCli) ASyncSendMsg(msg *KafkaMsg) {
 	//封装成 message
 	kafkaMsg := &sarama.ProducerMessage{
 		Topic:     msg.Topic,
@@ -115,15 +115,12 @@ func (p *KafkaCli) ASyncSendMsg(msg *KafkaMsg) {
 		Value:     sarama.StringEncoder(msg.Value),
 		Timestamp: time.Now(),
 	}
-
-	fmt.Println(p.cfg.Version)
-
 	//发送信息
 	p.asyncProducer.Input() <- kafkaMsg
 }
 
 //同步发送多个Msg
-func (p *KafkaCli) SyncSendMsg(msg []*KafkaMsg) error {
+func (p *kafkaCli) SyncSendMsg(msg []*KafkaMsg) error {
 	sMsg := make([]*sarama.ProducerMessage, len(msg))
 	for e := range msg {
 		sMsg[e].Key = sarama.StringEncoder(msg[e].Key)
@@ -137,7 +134,7 @@ func (p *KafkaCli) SyncSendMsg(msg []*KafkaMsg) error {
 }
 
 //同步发送单个Msg
-func (p *KafkaCli) SyncSendOneMsg(msg *KafkaMsg) (partition int32, offset int64, err error) {
+func (p *kafkaCli) SyncSendOneMsg(msg *KafkaMsg) (partition int32, offset int64, err error) {
 	//封装成 message
 	sMsg := &sarama.ProducerMessage{
 		Topic:     msg.Topic,
@@ -151,7 +148,7 @@ func (p *KafkaCli) SyncSendOneMsg(msg *KafkaMsg) (partition int32, offset int64,
 }
 
 //消费者 消费组
-func (p *KafkaCli) GroupListenToKafka(brokers []string, groupId string, topics []string, handler func(cs *cluster.Consumer)) {
+func (p *kafkaCli) GroupListenToKafka(brokers []string, groupId string, topics []string, handler func(cs *cluster.Consumer)) {
 	cfg := cluster.NewConfig()
 	cfg.Consumer.Retry.Backoff = 100 * time.Millisecond
 	cfg.Consumer.Offsets.Initial = sarama.OffsetNewest
@@ -176,7 +173,7 @@ func (p *KafkaCli) GroupListenToKafka(brokers []string, groupId string, topics [
 }
 
 //消费者 非消费组
-func (p *KafkaCli) ListenToKafka(brokers []string, topic string, handler func(consumer sarama.PartitionConsumer)) {
+func (p *kafkaCli) ListenToKafka(brokers []string, topic string, handler func(consumer sarama.PartitionConsumer)) {
 	cfg := sarama.NewConfig()
 	cfg.Consumer.Return.Errors = true
 	cfg.Version = sarama.V2_3_0_0
@@ -214,16 +211,16 @@ func (p *KafkaCli) ListenToKafka(brokers []string, topic string, handler func(co
 }
 
 //处理错误
-func (p *KafkaCli) HandErr(handler func(<-chan *sarama.ProducerError)) {
+func (p *kafkaCli) HandErr(handler func(<-chan *sarama.ProducerError)) {
 	handler(p.asyncProducer.Errors())
 }
 
 //处理成功的结果
-func (p *KafkaCli) HandResult(handler func(<-chan *sarama.ProducerMessage)) {
+func (p *kafkaCli) HandResult(handler func(<-chan *sarama.ProducerMessage)) {
 	handler(p.asyncProducer.Successes())
 }
 
-func (p *KafkaCli) Close() {
+func (p *kafkaCli) Close() {
 	if err := p.asyncProducer.Close(); err != nil {
 		p.asyncProducer.AsyncClose()
 	}

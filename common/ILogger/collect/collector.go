@@ -1,6 +1,10 @@
 package collect
 
 import (
+	"HelloMyWorld/common/ILogger"
+	"HelloMyWorld/common/iKafka"
+	"HelloMyWorld/config"
+	"errors"
 	"fmt"
 	"github.com/hpcloud/tail"
 	"log"
@@ -12,7 +16,18 @@ type Collector struct {
 	Topic string
 }
 
-func InitCollector(server, topic string) *Collector {
+func init() {
+	config.Init()
+	//初始化kafka
+	iKafka.Init(config.APPConfig.Kafka.Brokers)
+}
+
+func InitCollectorAndStart(server, topic string) error {
+
+	//本地测试环境默认不开启日志收集功能
+	if !ILogger.ToFile {
+		return errors.New("Start Collector failed. ILogger Config of 'ToFile' is 'false' ")
+	}
 	c := &Collector{}
 	if server == "" || topic == "" {
 		panic("Collector 'Server' or 'Kafka-Topic' is nil!")
@@ -21,10 +36,11 @@ func InitCollector(server, topic string) *Collector {
 		path, _ := os.Getwd()
 		c.Path = path + fmt.Sprintf("/logs/%s.txt", server)
 	}
-	return c
+	c.start()
+	return nil
 }
 
-func (p *Collector) Start() {
+func (p *Collector) start() {
 	t, err := tail.TailFile(p.Path, tail.Config{
 		Location: &tail.SeekInfo{
 			Offset: 0,
@@ -43,9 +59,11 @@ func (p *Collector) Start() {
 		for {
 			select {
 			case log := <-t.Lines:
-				fmt.Println(log.Text)
 				//发送到kafka
-			default:
+				iKafka.Kafka.ASyncSendMsg(&iKafka.KafkaMsg{
+					Topic: p.Topic,
+					Value: log.Text,
+				})
 			}
 		}
 	}(t)
