@@ -2,9 +2,9 @@ package main
 
 import (
 	"HelloMyWorld/gateway/app/router"
+	"golang.org/x/sync/errgroup"
 	"log"
 	"net/http"
-	"sync"
 )
 
 //TODO APP网关
@@ -20,10 +20,10 @@ import (
 //9.灰度发布
 
 var userServer *http.Server
-var wg *sync.WaitGroup
+var eg *errgroup.Group
 
 func main() {
-	wg = &sync.WaitGroup{}
+	eg = &errgroup.Group{}
 
 	//用户网关服务
 	userServer = &http.Server{
@@ -32,14 +32,12 @@ func main() {
 		ReadTimeout:  10,
 		WriteTimeout: 10,
 	}
-	wg.Add(1)
-	go func() {
-		err := userServer.ListenAndServe()
-		if err != nil {
-			log.Fatal("user router start err:", err)
-			wg.Done()
-		}
-	}()
 
-	wg.Wait()
+	eg.Go(func() error {
+		return userServer.ListenAndServe()
+	})
+
+	if err := eg.Wait(); err != nil {
+		log.Fatal("App gateway err:", err)
+	}
 }
