@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/aes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/aes_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway/app/safety/verifySign.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/sort.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/sort_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/app/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/app/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +60,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build HelloMyWorld/gateway/app">
+  <component name="RunManager" selected="Go Test.BenchmarkSortStr in HelloMyWorld/utils">
     <configuration name="go build HelloMyWorld/gateway/app" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -70,55 +70,57 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="BenchmarkSortStr in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/logmanager/main.go" />
-      <package value="HelloMyWorld" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestInitCollector in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
+      <working_directory value="$PROJECT_DIR$/utils" />
+      <framework value="gobench" />
       <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
+      <package value="HelloMyWorld/utils" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestInitCollector$" />
+      <pattern value="^BenchmarkSortStr$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestKafka_Producer in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestAesDecrypt in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/utils" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
+      <package value="HelloMyWorld/utils" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestKafka_Producer$" />
+      <pattern value="^TestAesDecrypt$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestManager_Log in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestAesEncrypt in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/utils" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
+      <package value="HelloMyWorld/utils" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestManager_Log$" />
+      <pattern value="^TestAesEncrypt$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestSortStr in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="HelloMyWorld" />
+      <working_directory value="$PROJECT_DIR$/utils" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="HelloMyWorld/utils" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestSortStr$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.BenchmarkSortStr in HelloMyWorld/utils" />
+        <item itemvalue="Go Test.TestSortStr in HelloMyWorld/utils" />
+        <item itemvalue="Go Test.TestAesDecrypt in HelloMyWorld/utils" />
+        <item itemvalue="Go Test.TestAesEncrypt in HelloMyWorld/utils" />
         <item itemvalue="Go Build.go build HelloMyWorld/gateway/app" />
-        <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Test.TestKafka_Producer in HelloMyWorld" />
-        <item itemvalue="Go Test.TestInitCollector in HelloMyWorld" />
-        <item itemvalue="Go Test.TestManager_Log in HelloMyWorld" />
       </list>
     </recent_temporary>
   </component>
