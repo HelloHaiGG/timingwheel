@@ -32,7 +32,6 @@ func main() {
 		ReadTimeout:  10,
 		WriteTimeout: 10,
 	}
-
 	eg.Go(func() error {
 		return userServer.ListenAndServe()
 	})
