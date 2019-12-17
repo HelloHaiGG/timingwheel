@@ -1,6 +1,7 @@
 package safety
 
 import (
+	"HelloMyWorld/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -10,24 +11,25 @@ import (
 */
 
 func RequiredParams(c *gin.Context) {
+
 	if len(c.Request.Header.Get("Ts")) == 0 {
 		c.JSON(http.StatusForbidden, gin.H{
-			"code": "10010",
-			"msg":  "错误请求",
+			"code": common.RequiredErrCode,
+			"msg":  common.RequestErrDesc,
 		})
 		c.Abort()
 	}
 	if len(c.Request.Header.Get("JX-Version")) == 0 {
 		c.JSON(http.StatusForbidden, gin.H{
-			"code": "10010",
-			"msg":  "错误请求",
+			"code": common.RequiredErrCode,
+			"msg":  common.RequestErrDesc,
 		})
 		c.Abort()
 	}
 	if len(c.Request.Header.Get("Sign")) == 0 {
 		c.JSON(http.StatusForbidden, gin.H{
-			"code": "10010",
-			"msg":  "错误请求",
+			"code": common.RequiredErrCode,
+			"msg":  common.RequestErrDesc,
 		})
 		c.Abort()
 	}

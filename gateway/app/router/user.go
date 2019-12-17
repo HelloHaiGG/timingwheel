@@ -14,6 +14,8 @@ func UserRouter() http.Handler {
 		safety.UserLimit,
 		//必要参数验证
 		safety.RequiredParams,
+		//签名验证
+		safety.VerifySign,
 	)
 
 	router.GET("/api", func(context *gin.Context) {

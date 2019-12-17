@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="" />
+    <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/common/responsecode.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/app/router/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/app/router/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/app/safety/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/app/safety/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/app/safety/varifyparams.go" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/app/safety/varifyparams.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/app/safety/verifysign.go" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/app/safety/verifysign.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +23,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="$PROJECT_DIR$/../../go_sdk/go" />
+  <component name="GOROOT" path="$PROJECT_DIR$/../../go_sdk/go.13.5" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -31,15 +39,15 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
+    <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ILogger" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/common" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ILogger" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -55,13 +63,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.BenchmarkSortStr in HelloMyWorld/utils">
+  <component name="RunManager" selected="Go Build.go build HelloMyWorld/gateway/app">
     <configuration name="go build HelloMyWorld/gateway/app" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/gateway/app/main.go" />
       <package value="HelloMyWorld/gateway/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="HelloMyWorld" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/gateway/app/main.go" />
+      <package value="HelloMyWorld" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
@@ -87,17 +104,6 @@
       <pattern value="^TestAesDecrypt$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestAesEncrypt in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$/utils" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="HelloMyWorld/utils" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestAesEncrypt$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestSortStr in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$/utils" />
@@ -111,11 +117,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build HelloMyWorld/gateway/app" />
+        <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Test.BenchmarkSortStr in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestSortStr in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestAesDecrypt in HelloMyWorld/utils" />
-        <item itemvalue="Go Test.TestAesEncrypt in HelloMyWorld/utils" />
-        <item itemvalue="Go Build.go build HelloMyWorld/gateway/app" />
       </list>
     </recent_temporary>
   </component>
@@ -138,5 +144,21 @@
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>https://goproxy.cn</proxy>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/gateway/app/safety/varifyparams.go</url>
+          <line>14</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/gateway/app/router/user.go</url>
+          <line>12</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,6 +1,7 @@
 package safety
 
 import (
+	"HelloMyWorld/common"
 	"HelloMyWorld/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -43,7 +44,7 @@ func VerifySign(c *gin.Context) {
 	case "POST", "PUT":
 	case "DELETE":
 	default:
-		//TODO 拒绝请求
+		//TODO
 	}
 	target = fmt.Sprintf("%s&%s", required, params)
 	//将目标字符串进行md5算法
@@ -51,8 +52,8 @@ func VerifySign(c *gin.Context) {
 	//比较与前端传的sign 是否一致
 	if strings.Compare(s, sign) != 0 {
 		c.JSON(http.StatusForbidden, gin.H{
-			"code": "10010",
-			"msg":  "错误请求",
+			"code": common.SignErrCode,
+			"msg":  common.RequiredErrCode,
 		})
 		c.Abort()
 	}
