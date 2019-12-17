@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func UserRouter() http.Handler {
+func UserRouter() *gin.Engine {
 	router := gin.Default()
 
 	//中间件

@@ -5,6 +5,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"log"
 	"net/http"
+	"time"
 )
 
 //TODO APP网关
@@ -27,10 +28,10 @@ func main() {
 
 	//用户网关服务
 	userServer = &http.Server{
-		Addr:         "127.0.0.1:59277", //及鲜app
+		Addr:         ":59277", //及鲜app
 		Handler:      router.UserRouter(),
-		ReadTimeout:  10,
-		WriteTimeout: 10,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
 	}
 	eg.Go(func() error {
 		return userServer.ListenAndServe()
@@ -39,4 +40,5 @@ func main() {
 	if err := eg.Wait(); err != nil {
 		log.Fatal("App gateway err:", err)
 	}
+	//router.UserRouter().Run(":59277")
 }

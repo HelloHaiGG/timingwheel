@@ -18,6 +18,7 @@ func RequiredParams(c *gin.Context) {
 			"msg":  common.RequestErrDesc,
 		})
 		c.Abort()
+		return
 	}
 	if len(c.Request.Header.Get("JX-Version")) == 0 {
 		c.JSON(http.StatusForbidden, gin.H{
@@ -25,6 +26,7 @@ func RequiredParams(c *gin.Context) {
 			"msg":  common.RequestErrDesc,
 		})
 		c.Abort()
+		return
 	}
 	if len(c.Request.Header.Get("Sign")) == 0 {
 		c.JSON(http.StatusForbidden, gin.H{
@@ -32,5 +34,6 @@ func RequiredParams(c *gin.Context) {
 			"msg":  common.RequestErrDesc,
 		})
 		c.Abort()
+		return
 	}
 }
