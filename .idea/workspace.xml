@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/gateway/app/safety/verifySign.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/sort.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/sort_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -143,16 +140,5 @@
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>https://goproxy.cn</proxy>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/config/cfg.go</url>
-          <line>13</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
