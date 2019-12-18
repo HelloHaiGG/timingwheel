@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/ilogger/collect/collector.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ilogger/collect/collector.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iredis/iredis.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/iredis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redis_connect_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/redis_connect_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
