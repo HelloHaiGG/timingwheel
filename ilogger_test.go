@@ -1,8 +1,8 @@
 package main
 
 import (
-	"HelloMyWorld/common/ILogger"
-	"HelloMyWorld/common/ILogger/collect"
+	"HelloMyWorld/common/ilogger"
+	"HelloMyWorld/common/ilogger/collect"
 	"HelloMyWorld/config"
 	"fmt"
 	"testing"
@@ -14,23 +14,23 @@ func TestInitCollector(t *testing.T) {
 
 	//初始化配置
 	config.Init()
-	ILogger.ToFile = true
+	ilogger.ToFile = true
 	err := collect.InitCollectorAndStart(config.APPConfig.Servers.Order, config.APPConfig.LTopic.Order)
 	if err != nil{
 		fmt.Println(err)
 	}
 
 	time.Sleep(time.Second)
-	logger := ILogger.Init(config.APPConfig.Servers.Order)
+	logger := ilogger.Init(config.APPConfig.Servers.Order)
 
-	logger.Info("This ILogger error")
+	logger.Info("This ilogger error")
 
 	<-make(chan bool)
 }
 
 func TestInfo(t *testing.T) {
 	//初始化日志库
-	logger := ILogger.Init("logger server")
-	logger.Debug("This ILogger error")
+	logger := ilogger.Init("logger server")
+	logger.Debug("This ilogger error")
 	time.Sleep(time.Second * 2)
 }

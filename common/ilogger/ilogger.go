@@ -1,4 +1,4 @@
-package ILogger
+package ilogger
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func Init(server string) *ILogger {
 	if server != "" {
 		sev = server
 	} else {
-		panic("ILogger server is nil!")
+		panic("ilogger server is nil!")
 	}
 	iLogger := &ILogger{instance: logrus.New()}
 	if ToFile {

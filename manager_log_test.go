@@ -1,8 +1,8 @@
 package main
 
 import (
-	"HelloMyWorld/common/ILogger"
-	"HelloMyWorld/common/iKafka"
+	"HelloMyWorld/common/ikafka"
+	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/config"
 	"encoding/json"
 	"fmt"
@@ -12,11 +12,11 @@ import (
 
 func TestManager_Log(t *testing.T) {
 	config.Init()
-	iKafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers, "log-group", []string{config.APPConfig.LTopic.Order}, func(cs *cluster.Consumer) {
+	ikafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers, "log-group", []string{config.APPConfig.LTopic.Order}, func(cs *cluster.Consumer) {
 		for {
 			select {
 			case msg := <-cs.Messages():
-				m := &ILogger.LogMsg{}
+				m := &ilogger.LogMsg{}
 				_ = json.Unmarshal(msg.Value, &m)
 				fmt.Printf("%v\n",m)
 			case err := <-cs.Errors():

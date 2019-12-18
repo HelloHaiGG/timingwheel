@@ -1,4 +1,4 @@
-package ILogger
+package ilogger
 
 import (
 	"fmt"

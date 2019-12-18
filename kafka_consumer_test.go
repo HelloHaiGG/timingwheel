@@ -1,7 +1,7 @@
 package main
 
 import (
-	"HelloMyWorld/common/iKafka"
+	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/config"
 	"fmt"
 	"github.com/Shopify/sarama"
@@ -11,8 +11,8 @@ import (
 
 func TestKafka_GroupConsumer(t *testing.T) {
 	config.Init()
-	//iKafka.Init()
-	iKafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers, "group-log", []string{"log-msg"}, func(cs *cluster.Consumer) {
+	//ikafka.Init()
+	ikafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers, "group-log", []string{"log-msg"}, func(cs *cluster.Consumer) {
 		for {
 			select {
 			case msg := <-cs.Messages():
@@ -25,8 +25,8 @@ func TestKafka_GroupConsumer(t *testing.T) {
 }
 func TestKafka_Consumer(t *testing.T) {
 	config.Init()
-	iKafka.Init(config.APPConfig.Kafka.Brokers)
-	iKafka.Kafka.ListenToKafka(config.APPConfig.Kafka.Brokers, "log-msg", func(pc sarama.PartitionConsumer) {
+	ikafka.Init(config.APPConfig.Kafka.Brokers)
+	ikafka.Kafka.ListenToKafka(config.APPConfig.Kafka.Brokers, "log-msg", func(pc sarama.PartitionConsumer) {
 		for {
 			select {
 			case msg := <-pc.Messages():

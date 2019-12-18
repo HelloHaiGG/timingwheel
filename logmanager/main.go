@@ -1,7 +1,7 @@
 package main
 
 import (
-	"HelloMyWorld/common/iKafka"
+	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/config"
 	"fmt"
 	cluster "github.com/bsm/sarama-cluster"
@@ -15,7 +15,7 @@ import (
 
 func main() {
 	config.Init()
-	iKafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers,
+	ikafka.Kafka.GroupListenToKafka(config.APPConfig.Kafka.Brokers,
 		"log-manager",
 		[]string{
 			config.APPConfig.LTopic.Order,

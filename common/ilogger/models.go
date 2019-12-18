@@ -1,4 +1,4 @@
-package ILogger
+package ilogger
 
 type LogMsg struct {
 	Who   string `json:"who"`
