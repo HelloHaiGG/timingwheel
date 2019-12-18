@@ -7,6 +7,7 @@ require (
 	github.com/Shopify/sarama v1.24.1
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/gin-gonic/gin v1.5.0
+	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/hpcloud/tail v1.0.0
 	github.com/klauspost/cpuid v1.2.2 // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible
