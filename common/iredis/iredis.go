@@ -26,15 +26,15 @@ func Init(opt *IOptions) {
 	}
 }
 
-
 type IOptions struct {
-	Host        string
-	Port        int
-	DB          int
-	Password    string
-	MaxRetry    int
+	Host     string
+	Port     int
+	DB       int
+	Password string
+	MaxRetry int
+	//秒
 	DialTimeOut time.Duration
-	//空闲连接的保活时常
+	//空闲连接的保活时常 分钟
 	MaxConnAge time.Duration
 }
 
@@ -57,9 +57,13 @@ func (p *IOptions) Init() {
 	}
 	if p.DialTimeOut == 0 {
 		p.DialTimeOut = 10
+	} else {
+		p.DialTimeOut = p.DialTimeOut * time.Second
 	}
 	//五分钟保活
 	if p.MaxConnAge == 0 {
 		p.MaxConnAge = time.Minute * 5
+	} else {
+		p.MaxConnAge = time.Minute * p.MaxConnAge
 	}
 }

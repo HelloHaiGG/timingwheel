@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iRedis/ioptions.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iRedis/iredis.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/ilogger/collect/collector.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ilogger/collect/collector.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/iredis/iredis.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/iredis.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/redis_connect_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/redis_connect_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,7 +35,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/common/iRedis" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../msssqldump" />
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
@@ -44,6 +44,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/common/iRedis" />
       <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$/ILogger" />
       <recent name="$PROJECT_DIR$" />
@@ -61,7 +62,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build HelloMyWorld/gateway/app">
+  <component name="RunManager" selected="Go Test.TestRedisInit in HelloMyWorld">
     <configuration name="go build HelloMyWorld/gateway/app" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -91,15 +92,15 @@
       <pattern value="^BenchmarkSortStr$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestAesDecrypt in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestRedisInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$/utils" />
+      <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="HelloMyWorld/utils" />
+      <package value="HelloMyWorld" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestAesDecrypt$" />
+      <pattern value="^TestRedisInit$" />
       <method v="2" />
     </configuration>
     <configuration name="TestSortStr in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -115,11 +116,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestRedisInit in HelloMyWorld" />
         <item itemvalue="Go Build.go build HelloMyWorld/gateway/app" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Test.BenchmarkSortStr in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestSortStr in HelloMyWorld/utils" />
-        <item itemvalue="Go Test.TestAesDecrypt in HelloMyWorld/utils" />
       </list>
     </recent_temporary>
   </component>

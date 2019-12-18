@@ -1,8 +1,8 @@
 package collect
 
 import (
-	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/common/ikafka"
+	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/config"
 	"errors"
 	"fmt"
@@ -17,17 +17,17 @@ type Collector struct {
 }
 
 func init() {
-	config.Init()
-	//初始化kafka
-	ikafka.Init(config.APPConfig.Kafka.Brokers)
+
 }
 
 func InitCollectorAndStart(server, topic string) error {
-
-	//本地测试环境默认不开启日志收集功能
 	if !ilogger.ToFile {
 		return errors.New("Start Collector failed. ilogger Config of 'ToFile' is 'false' ")
 	}
+	config.Init()
+	//初始化kafka
+	ikafka.Init(config.APPConfig.Kafka.Brokers)
+	//本地测试环境默认不开启日志收集功能
 	c := &Collector{}
 	if server == "" || topic == "" {
 		panic("Collector 'Server' or 'Kafka-Topic' is nil!")
