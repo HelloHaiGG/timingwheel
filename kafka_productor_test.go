@@ -1,27 +1,27 @@
 package main
 
 import (
-	"HelloMyWorld/common/iKafka"
+	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/config"
 	"testing"
 )
 
 func TestKafka_Producer(t *testing.T) {
 	config.Init()
-	iKafka.Init(config.APPConfig.Kafka.Brokers)
-	defer iKafka.Kafka.Close()
+	ikafka.Init(config.APPConfig.Kafka.Brokers)
+	defer ikafka.Kafka.Close()
 	//异步发送数据
-	iKafka.Kafka.ASyncSendMsg(&iKafka.KafkaMsg{
+	ikafka.Kafka.ASyncSendMsg(&ikafka.KafkaMsg{
 		Topic: config.APPConfig.LTopic.Gateway,
 		Key:   "",
 		Value: "This is Kafka Test!",
 	})
-	iKafka.Kafka.ASyncSendMsg(&iKafka.KafkaMsg{
+	ikafka.Kafka.ASyncSendMsg(&ikafka.KafkaMsg{
 		Topic: config.APPConfig.LTopic.Finance,
 		Key:   "",
 		Value: "This is Kafka Test!",
 	})
-	iKafka.Kafka.ASyncSendMsg(&iKafka.KafkaMsg{
+	ikafka.Kafka.ASyncSendMsg(&ikafka.KafkaMsg{
 		Topic: config.APPConfig.LTopic.Order,
 		Key:   "",
 		Value: "This is Kafka Test!",

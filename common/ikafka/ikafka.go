@@ -1,4 +1,4 @@
-package iKafka
+package ikafka
 
 import (
 	"HelloMyWorld/config"
