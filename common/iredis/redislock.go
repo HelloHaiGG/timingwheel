@@ -10,7 +10,7 @@ func RLock(key string, duration int) error {
 		return errors.New("redis cli nil")
 	}
 	if b, _ := RedisCli.SetNX(key, "redis-lock", time.Duration(duration)*time.Second).Result(); !b {
-		return errors.New("redis lock error")
+		return errors.New("redis lock")
 	}
 	return nil
 }

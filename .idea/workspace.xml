@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="" />
+    <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/iredis/redislock.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/redislock.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/redis_connect_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/redis_test.go" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +31,14 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="go.sdk" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -57,7 +64,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestRedisInit in HelloMyWorld">
+  <component name="RunManager" selected="Go Test.TestRedisLock in HelloMyWorld">
     <configuration name="go build HelloMyWorld/gateway/app" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -98,24 +105,24 @@
       <pattern value="^TestRedisInit$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestSortStr in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestRedisLock in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$/utils" />
+      <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="HelloMyWorld/utils" />
+      <package value="HelloMyWorld" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSortStr$" />
+      <pattern value="^TestRedisLock$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestRedisLock in HelloMyWorld" />
         <item itemvalue="Go Test.TestRedisInit in HelloMyWorld" />
         <item itemvalue="Go Build.go build HelloMyWorld/gateway/app" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Test.BenchmarkSortStr in HelloMyWorld/utils" />
-        <item itemvalue="Go Test.TestSortStr in HelloMyWorld/utils" />
       </list>
     </recent_temporary>
   </component>
