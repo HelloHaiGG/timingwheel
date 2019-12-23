@@ -12,7 +12,7 @@ var RedisCli *redis.Client
 
 func Init(opt *IOptions) {
 	//初始默认配置
-	opt.Init()
+	opt.init()
 	RedisCli = redis.NewClient(&redis.Options{
 		Addr:        fmt.Sprintf("%s:%d", opt.Host, opt.Port),
 		Password:    opt.Password,
@@ -39,7 +39,7 @@ type IOptions struct {
 }
 
 //初始化默认值
-func (p *IOptions) Init() {
+func (p *IOptions) init() {
 	if p.Host == "" {
 		p.Host = "127.0.0.1"
 	}

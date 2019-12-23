@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/common/igorm/igorm.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gorm_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iredis/redislock.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/redislock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redis_connect_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/redis_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/iredis/iredis.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/iredis.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/models.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +69,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestRedisLock in HelloMyWorld">
+  <component name="RunManager" selected="Go Test.TestGormInit in HelloMyWorld">
     <configuration name="go build HelloMyWorld/gateway/app" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -83,15 +88,15 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="BenchmarkSortStr in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGormInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$/utils" />
-      <framework value="gobench" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="HelloMyWorld/utils" />
+      <package value="HelloMyWorld" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^BenchmarkSortStr$" />
+      <pattern value="^TestGormInit$" />
       <method v="2" />
     </configuration>
     <configuration name="TestRedisInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -118,11 +123,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestGormInit in HelloMyWorld" />
         <item itemvalue="Go Test.TestRedisLock in HelloMyWorld" />
         <item itemvalue="Go Test.TestRedisInit in HelloMyWorld" />
         <item itemvalue="Go Build.go build HelloMyWorld/gateway/app" />
         <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Test.BenchmarkSortStr in HelloMyWorld/utils" />
       </list>
     </recent_temporary>
   </component>
