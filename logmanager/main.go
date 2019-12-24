@@ -26,7 +26,7 @@ func main() {
 			for {
 				select {
 				case msg := <-cs.Messages():
-					//TODO 将系统日志存储起来
+					//TODO 将系统日志存储起来 通过 es+tablestore 管理
 					fmt.Println(msg)
 				case err := <-cs.Errors():
 					logrus.Errorf("Log Manager Error:%s\n", err.Error())

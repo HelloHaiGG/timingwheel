@@ -1,6 +1,6 @@
 # HelloMyWorld
 
-#### es + tablestore
+#### es + tablestore 实现系统日志管理
 
 ####gateway 网关
 * app 网关
@@ -16,9 +16,13 @@ gorm
 雪花算法
 etcd
 验证码
-调用链工具
+调用链工具集成
 ant携程池
-grpc
+grpc通信
 时间轮
+````
+
+````
+目前只关注功能测试,性能测试后期测试
 ````
  
