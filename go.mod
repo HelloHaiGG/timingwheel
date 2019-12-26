@@ -14,6 +14,7 @@ require (
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/onsi/ginkgo v1.10.3 // indirect
 	github.com/onsi/gomega v1.7.1 // indirect
+	github.com/panjf2000/ants/v2 v2.2.2
 	github.com/sirupsen/logrus v1.4.2
 	golang.org/x/sync v0.0.0-20190227155943-e225da77a7e6
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
