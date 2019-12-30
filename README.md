@@ -39,7 +39,7 @@ L2:redis
     put(key string) error
     reset(key string) error
 
-    系统维护一个sync.Map[key][flag]
+    系统维护一个sync.Map[key][flag] //考虑到分布式,可以用redis代替
     flag:表示 key 对应的 value 值是否在进行 reset 操作
          flag = 1 
             get操作:  
