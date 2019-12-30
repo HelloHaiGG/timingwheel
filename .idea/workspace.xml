@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/icache/L2/l2.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/icache/cache.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icache/L1/l1.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icache/L2/l2.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icache/cache.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ilogger_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ilogger_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,11 +41,12 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/common/icache" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/common/icache" />
       <recent name="$PROJECT_DIR$/common/iRedis" />
       <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$/ILogger" />
@@ -67,7 +69,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestWithArgs in HelloMyWorld/utils">
+  <component name="RunManager" selected="Go Build.go build HelloMyWorld">
+    <configuration name="go build HelloMyWorld" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="HelloMyWorld" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <package value="HelloMyWorld" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestGormInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -88,17 +99,6 @@
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
       <pattern value="^TestNoArgs$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestRedisInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestRedisInit$" />
       <method v="2" />
     </configuration>
     <configuration name="TestRedisLock in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -125,11 +125,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build HelloMyWorld" />
         <item itemvalue="Go Test.TestWithArgs in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestNoArgs in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestGormInit in HelloMyWorld" />
         <item itemvalue="Go Test.TestRedisLock in HelloMyWorld" />
-        <item itemvalue="Go Test.TestRedisInit in HelloMyWorld" />
       </list>
     </recent_temporary>
   </component>
