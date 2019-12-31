@@ -22,7 +22,7 @@ func Init(opt *IOptions) {
 		MaxConnAge:  opt.MaxConnAge,
 	})
 	if RedisCli.Ping().Err() != nil {
-		log.Fatal("Redis初始化失败.")
+		log.Fatal("Redis初始化失败.",RedisCli.Ping().Err())
 	}
 }
 
@@ -56,7 +56,7 @@ func (p *IOptions) init() {
 		p.MaxRetry = 5
 	}
 	if p.DialTimeOut == 0 {
-		p.DialTimeOut = 10
+		p.DialTimeOut = 10 * time.Second
 	} else {
 		p.DialTimeOut = p.DialTimeOut * time.Second
 	}
