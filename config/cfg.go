@@ -20,8 +20,7 @@ func Init() {
 		panic(fmt.Sprintf("%s loading error:%v",path,err))
 	} else {
 		if err = yaml.Unmarshal(b, &APPConfig); err != nil {
-			return
-			panic(fmt.Sprintf("Unmarshal appconfig error:%v",err))
+			panic(fmt.Sprintf("Unmarshal config error:%v",err))
 		}
 	}
 }
