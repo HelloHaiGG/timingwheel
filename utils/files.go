@@ -2,7 +2,6 @@ package utils
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -27,7 +26,7 @@ func HandFile(path string) ([]byte, error) {
 //按行读取文件
 func ReadFileForLine(path string) ([]string, error) {
 	if !IsExist(path) {
-		return nil, errors.New(fmt.Sprintf("%s不存在", path))
+		return nil, fmt.Errorf(fmt.Sprintf("%s不存在", path))
 	}
 	file, err := os.Open(path)
 	if err != nil {

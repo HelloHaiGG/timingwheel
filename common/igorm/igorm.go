@@ -6,7 +6,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"log"
 )
-
 var DbClient *gorm.DB
 
 func Init(option *IOption) {

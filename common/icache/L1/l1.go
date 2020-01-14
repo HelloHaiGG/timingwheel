@@ -77,3 +77,19 @@ RETRY:
 func onDelete(key string, entry []byte) {
 
 }
+
+//
+func Demo(month int) int {
+	if month <= 2 {
+		return 1
+	}
+	monthN := 0
+	monthN2 := 1
+	monthN1 := 1
+	for i := 0; i < month-2; i++ {
+		monthN = monthN1 + monthN2
+		monthN2 = monthN1
+		monthN1 = monthN
+	}
+	return monthN
+}
