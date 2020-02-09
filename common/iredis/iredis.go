@@ -56,7 +56,7 @@ func (p *IOptions) Init() {
 		p.MaxRetry = 5
 	}
 	if p.DialTimeOut == 0 {
-		p.DialTimeOut = 10
+		p.DialTimeOut = 10 * time.Second
 	} else {
 		p.DialTimeOut = p.DialTimeOut * time.Second
 	}

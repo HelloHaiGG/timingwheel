@@ -28,7 +28,7 @@ func main() {
 
 	//用户网关服务
 	userServer = &http.Server{
-		Addr:         ":59277", //及鲜app
+		Addr:         "127.255.10.1:59277", //及鲜app
 		Handler:      router.UserRouter(),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
