@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"bufio"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 )
@@ -19,3 +22,28 @@ func HandFile(path string) ([]byte, error) {
 	}
 	return b, nil
 }
+
+//按行读取文件
+func ReadFileForLine(path string) ([]string, error) {
+	if !IsExist(path) {
+		return nil, fmt.Errorf(fmt.Sprintf("%s不存在", path))
+	}
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	reader := bufio.NewReader(file)
+	res := make([]string, 0)
+	for {
+		str, err := reader.ReadString('\n')
+		if err != nil && err != io.EOF {
+			return nil, err
+		} else if err == io.EOF {
+			break
+		}
+		res = append(res, str)
+	}
+	return res, nil
+}
+
+

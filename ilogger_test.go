@@ -12,6 +12,8 @@ import (
 
 func TestInitCollector(t *testing.T) {
 
+
+
 	//初始化配置
 	config.Init()
 	ilogger.ToFile = true

@@ -11,3 +11,16 @@ l_topic:
 kafka:
   brokers: [127.0.0.1:9092]
   timeout: 5
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: 123456
+  is_debug: true
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: 123456
+  db: 0

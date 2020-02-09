@@ -33,7 +33,7 @@ func InitSF(machineId int64) {
 	})
 }
 
-func (p *SnowFlake) GetId() int64 {
+func (p *SnowFlake) GetID() int64 {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 	p.curTS = time.Now().UnixNano() / 1e6
