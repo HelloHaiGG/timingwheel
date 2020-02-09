@@ -1,8 +1,8 @@
 package imongo
 
 import (
+	"HelloMyWorld/config"
 	"context"
-	"github.com/HelloHaiGG/WeChat/config"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"testing"
 )
