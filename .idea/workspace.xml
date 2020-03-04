@@ -2,31 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/icache/L1/l1.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/icache/L2/l2.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/icache/cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/igorm/igorm.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gorm_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/redis_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/ants_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icache_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iredis/iredis.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/iredis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iredis/redislock.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/redislock.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cfg.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/cfg.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilogger_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ilogger_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logmanager/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/logmanager/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redis_connect_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/files.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/files.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/snowflake.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/snowflake.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/snowflake_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/snowflake_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icache/L1/l1.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/icache/L1/l1.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icache/cache.go" beforeDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +21,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="I:/go_sdk" />
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.13.5/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -47,6 +29,7 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1UmCRTg9kWOaPGdMYm1LXGtGRgy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -58,6 +41,12 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
@@ -73,19 +62,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Go Build.go build HelloMyWorld">
+  <component name="RunManager" selected="Go Test.TestCache in HelloMyWorld">
     <configuration name="go build HelloMyWorld" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -93,6 +70,17 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <package value="HelloMyWorld" />
       <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCache in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="HelloMyWorld" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="HelloMyWorld" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestCache$" />
       <method v="2" />
     </configuration>
     <configuration name="TestFindC in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -104,17 +92,6 @@
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
       <pattern value="^TestFindC$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestGormInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGormInit$" />
       <method v="2" />
     </configuration>
     <configuration name="TestNoArgs in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -141,11 +118,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestCache in HelloMyWorld" />
         <item itemvalue="Go Build.go build HelloMyWorld" />
         <item itemvalue="Go Test.TestFindC in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestWithArgs in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestNoArgs in HelloMyWorld/utils" />
-        <item itemvalue="Go Test.TestGormInit in HelloMyWorld" />
       </list>
     </recent_temporary>
   </component>
@@ -168,5 +145,27 @@
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>https://goproxy.cn</proxy>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1638" height="246" key="GridCell.Tab.0.bottom" timestamp="1583320152065">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.bottom/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320152065" />
+    <state width="1638" height="246" key="GridCell.Tab.0.center" timestamp="1583320152064">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.center/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320152064" />
+    <state width="1638" height="246" key="GridCell.Tab.0.left" timestamp="1583320152064">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.left/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320152064" />
+    <state width="1638" height="246" key="GridCell.Tab.0.right" timestamp="1583320152065">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.right/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320152065" />
+    <state x="341" y="152" key="SettingsEditor" timestamp="1583316321132">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state x="341" y="152" key="SettingsEditor/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583316321132" />
   </component>
 </project>
