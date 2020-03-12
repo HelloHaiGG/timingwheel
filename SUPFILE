@@ -1,0 +1,17 @@
+#### 远程操作
+#### github.com/pressly/sup/cmd/sup
+#### sup [OPTIONS] NETWORK COMMAND [...]
+
+
+networks:
+    pretext:
+        hosts:139.23.23.44
+
+command:
+    exp:
+        desc: Here's an example
+        run: sudo docker logs --tail=10 -f log.txt
+
+#### sup pretext exp  --> 远程主机 sudo docker logs --tail=10 -f log.txt
+
+####详细操作-->github.com/pressly/sup/cmd/sup
