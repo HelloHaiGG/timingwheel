@@ -2,29 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/common/icache/L1/l1.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/icache/L2/l2.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/icache/cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/igorm/igorm.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gorm_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/redis_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/ants_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/serverhandler/instance.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iredis/iredis.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/iredis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/iredis/redislock.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/iredis/redislock.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cfg.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/cfg.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/models.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ilogger_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ilogger_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logmanager/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/logmanager/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redis_connect_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/files.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/files.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/snowflake.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/snowflake.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/snowflake_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/snowflake_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,15 +44,16 @@
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/common" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/common/icache" />
       <recent name="$PROJECT_DIR$/common/iRedis" />
       <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$/ILogger" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\GolandProjects\HelloMyWorld\common\serverhandler" />
+      <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>

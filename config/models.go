@@ -6,6 +6,7 @@ type appCfg struct {
 	Servers Servers  `yaml:"servers"`
 	Redis   RedisCfg `yaml:"redis"`
 	Mysql   MysqlCfg `yaml:"mysql"`
+	Grpc    GrpcCfg  `yaml:"grpc"`
 }
 
 type LogTopic struct {
@@ -44,4 +45,9 @@ type MysqlCfg struct {
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
 	IsDebug  string `yaml:"is_debug"`
+}
+
+//grpc
+type GrpcCfg struct {
+	CallTimeOut int32 `yaml:"call_time_out"`
 }
