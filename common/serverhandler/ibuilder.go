@@ -1,7 +1,7 @@
 package serverhandler
 
 import (
-	"go.etcd.io/etcd/clientv3"
+	"HelloMyWorld/common/ietcd"
 	"google.golang.org/grpc/resolver"
 	"log"
 )
@@ -36,36 +36,20 @@ func (p *IBuilder) Scheme() string {
 }
 
 func (p *IBuilder) Build(target resolver.Target, cc resolver.ClientConn, opts resolver.BuildOptions) (resolver.Resolver, error) {
-	var etcdClient *clientv3.Client
-	var err error
-	if etcdClient,err = clientv3.New(clientv3.Config{
-		Endpoints:            nil,
-		AutoSyncInterval:     0,
-		DialTimeout:          0,
-		DialKeepAliveTime:    0,
-		DialKeepAliveTimeout: 0,
-		MaxCallSendMsgSize:   0,
-		MaxCallRecvMsgSize:   0,
-		TLS:                  nil,
-		Username:             "",
-		Password:             "",
-		RejectOldCluster:     false,
-		DialOptions:          nil,
-		LogConfig:            nil,
-		Context:              nil,
-		PermitWithoutStream:  false,
-	});err != nil{
-		log.Fatalf("Register Resolver Builder Fail:%v",err)
-		return nil,err
+
+	if ietcd.Client == nil{
+		log.Fatal("Etcd Client is Nil. First 'ietcd.Init()'")
 	}
 
 	//创建 IResolver
 	iResolver := &IResolver{
 		cc: cc,
-		c:  etcdClient,
+		c:  ietcd.Client,
 	}
 
 	go iResolver.watch("/"+target.Scheme + "/" +target.Endpoint)
+
+	return iResolver,nil
 }
 
 
