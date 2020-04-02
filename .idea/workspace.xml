@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/common/serverhandler/iregister.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/ietcd/ietcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ietcd/ietcd.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/serverhandler/ibuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/serverhandler/ibuilder.go" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> f0e757d1c1a39034a451f09319cb6897d980ae6f
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +23,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="I:/go_sdk" />
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.13.5/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -28,8 +31,15 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1UmCRTg9kWOaPGdMYm1LXGtGRgy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
@@ -39,6 +49,12 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
@@ -55,19 +71,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Go Build.go build HelloMyWorld">
+  <component name="RunManager" selected="Go Test.TestCache in HelloMyWorld">
     <configuration name="go build HelloMyWorld" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HelloMyWorld" />
       <working_directory value="$PROJECT_DIR$" />
@@ -75,6 +79,17 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <package value="HelloMyWorld" />
       <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCache in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="HelloMyWorld" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="HelloMyWorld" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestCache$" />
       <method v="2" />
     </configuration>
     <configuration name="TestFindC in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -86,17 +101,6 @@
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
       <pattern value="^TestFindC$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestGormInit in HelloMyWorld" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="HelloMyWorld" />
-      <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="HelloMyWorld" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGormInit$" />
       <method v="2" />
     </configuration>
     <configuration name="TestNoArgs in HelloMyWorld/utils" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -123,11 +127,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestCache in HelloMyWorld" />
         <item itemvalue="Go Build.go build HelloMyWorld" />
         <item itemvalue="Go Test.TestFindC in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestWithArgs in HelloMyWorld/utils" />
         <item itemvalue="Go Test.TestNoArgs in HelloMyWorld/utils" />
-        <item itemvalue="Go Test.TestGormInit in HelloMyWorld" />
       </list>
     </recent_temporary>
   </component>
@@ -150,5 +154,42 @@
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>https://goproxy.cn</proxy>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="560" y="313" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584015330861">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state x="560" y="313" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1584015330861" />
+    <state width="1638" height="246" key="GridCell.Tab.0.bottom" timestamp="1583320336516">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.bottom/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320336516" />
+    <state width="1638" height="246" key="GridCell.Tab.0.center" timestamp="1583320336515">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.center/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320336515" />
+    <state width="1638" height="246" key="GridCell.Tab.0.left" timestamp="1583320336515">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.left/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320336515" />
+    <state width="1638" height="246" key="GridCell.Tab.0.right" timestamp="1583320336516">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state width="1638" height="246" key="GridCell.Tab.0.right/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583320336516" />
+    <state x="341" y="152" key="SettingsEditor" timestamp="1583316321132">
+      <screen x="0" y="23" width="1680" height="980" />
+    </state>
+    <state x="341" y="152" key="SettingsEditor/0.23.1680.980/-1920.23.1920.1057@0.23.1680.980" timestamp="1583316321132" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/icache_test.go</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
