@@ -24,3 +24,13 @@ redis:
   port: 6379
   password: 123456
   db: 0
+
+etcd:
+  host: [127.0.0.1:2379]
+  user: root
+  password: root123456
+  dail_time_out: 10
+  dail_keep_alive_time: 10
+
+grpc:
+  call_time_out: 10 #秒

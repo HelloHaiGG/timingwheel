@@ -6,6 +6,8 @@ type appCfg struct {
 	Servers Servers  `yaml:"servers"`
 	Redis   RedisCfg `yaml:"redis"`
 	Mysql   MysqlCfg `yaml:"mysql"`
+	Grpc    GrpcCfg  `yaml:"grpc"`
+	Etcd    EtcdCfg  `yaml:"etcd"`
 }
 
 type LogTopic struct {
@@ -44,4 +46,19 @@ type MysqlCfg struct {
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
 	IsDebug  string `yaml:"is_debug"`
+}
+
+//Etcd
+type EtcdCfg struct {
+	Hosts             []string `yaml:"host"`
+	Port              int      `yaml:"port"`
+	User              string   `yaml:"user"`
+	Password          string   `yaml:"password"`
+	DialTimeOut       int32    `yaml:"dial_time_out"`
+	DialKeepAliveTime int32    `yaml:"dial_keep_alive_time"`
+}
+
+//grpc
+type GrpcCfg struct {
+	CallTimeOut int32 `yaml:"call_time_out"`
 }

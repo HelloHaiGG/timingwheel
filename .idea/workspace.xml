@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195df15-c990-4559-bd90-96bc19de5639" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+=======
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/common/serverhandler/iregister.go" afterDir="false" />
+>>>>>>> 83e29b534a3d61262de1667a063f7e8bb83ecbe6
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/ietcd/ietcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/ietcd/ietcd.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/serverhandler/ibuilder.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/serverhandler/ibuilder.go" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> f0e757d1c1a39034a451f09319cb6897d980ae6f
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,15 +62,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/common" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/common/icache" />
       <recent name="$PROJECT_DIR$/common/iRedis" />
       <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$/ILogger" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\GolandProjects\HelloMyWorld\common\serverhandler" />
+      <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
