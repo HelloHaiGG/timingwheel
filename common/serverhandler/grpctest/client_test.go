@@ -29,9 +29,10 @@ func TestGetServerInstance(t *testing.T) {
 	for true {
 		res, err := client.SayHello(context.Background(), &Request{Msg: "Hello Server !"})
 		if err != nil {
-			t.Fatal(err)
+			t.Log(err)
+		}else{
+			fmt.Println("server:", res.Server, " Msg:", res.Msg)
 		}
-		fmt.Println("server:", res.Server, " Msg:", res.Msg)
 	}
 
 }

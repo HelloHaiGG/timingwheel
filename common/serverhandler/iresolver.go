@@ -15,7 +15,6 @@ Resolver:服务地址维护对象,通过两个接口方法可以改变维护状�
 */
 
 const (
-	EXIST     = 1
 	NOT_EXIST = -1
 )
 
@@ -59,7 +58,7 @@ func (p *IResolver) UpdateAddr(prefix string) {
 					p.addr = append(p.addr, resolver.Address{Addr: string(v.Kv.Value)})
 				}
 			case mvccpb.DELETE:
-				if res := p.isExist(string(v.Kv.Value)); res != EXIST {
+				if res := p.isExist(string(v.Kv.Value)); res != NOT_EXIST {
 					if len(p.addr) == 0 {
 						continue
 					}
