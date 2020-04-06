@@ -2,7 +2,7 @@ package grpctest
 
 import (
 	"HelloMyWorld/common/ietcd"
-	"HelloMyWorld/common/serverhandler"
+	"HelloMyWorld/common/serverholder"
 	"HelloMyWorld/config"
 	"context"
 	"fmt"

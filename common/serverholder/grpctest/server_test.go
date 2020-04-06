@@ -2,7 +2,7 @@ package grpctest
 
 import (
 	"HelloMyWorld/common/ietcd"
-	"HelloMyWorld/common/serverhandler"
+	"HelloMyWorld/common/serverholder"
 	"HelloMyWorld/config"
 	"context"
 	"fmt"
@@ -11,17 +11,19 @@ import (
 	"time"
 )
 
-//测试多个server的负载均衡
+// grpc-etcd 服务端测试
 
 //定义结构体,实现服务端方法
-type HServer struct{}
+type HaServer struct{}
 
-func (p *HServer) SayHello(ctx context.Context, in *Request) (*Response, error) {
-	fmt.Println("server 2 be call...")
-	return &Response{Server: "Hello Server 2", Msg: in.Msg}, nil
+func (p *HaServer) SayHello(ctx context.Context, in *Request) (*Response, error) {
+	fmt.Println("server be call...")
+	return &Response{Server: "Hello Server", Msg: in.Msg}, nil
 }
 
-func TestRegisterHelloServer2(t *testing.T) {
+const testServer = "TestServer"
+
+func TestRegisterHelloServer(t *testing.T) {
 	config.Init("/Users/mac126/workspace/go-project/HelloMyWorld/config.yaml")
 	ietcd.Init(ietcd.IOptions{
 		Name:          "",
@@ -35,13 +37,13 @@ func TestRegisterHelloServer2(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = register.Register(testServer, "3839")
+	err = register.Register(testServer, "3838")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	err = register.RunRpcServer("3839", func(s *grpc.Server) {
-		RegisterHelloServer(s, new(HServer))
+	err = register.RunRpcServer("3838", func(s *grpc.Server) {
+		RegisterHelloServer(s, new(HaServer))
 	})
 	if err != nil {
 		t.Fatal(err)

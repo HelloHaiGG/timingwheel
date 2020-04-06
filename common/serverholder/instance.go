@@ -23,7 +23,6 @@ func GetServerConn(server string) *grpc.ClientConn {
 		return value.(*grpc.ClientConn)
 	}
 }
-
 func NewRpcConn(server string) *grpc.ClientConn {
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
@@ -35,5 +34,6 @@ func NewRpcConn(server string) *grpc.ClientConn {
 	if err != nil {
 		log.Fatalf("Grpc Dial %s Error:%v", server, err)
 	}
+	global.Store(server, conn)
 	return conn
 }
