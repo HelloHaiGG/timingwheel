@@ -11,7 +11,8 @@ func UserRouter() *gin.Engine {
 
 	//中间件
 	router.Use(
-		safety.UserLimit,
+		//限流器
+		safety.Limit,
 		//必要参数验证
 		safety.RequiredParams,
 		//签名验证

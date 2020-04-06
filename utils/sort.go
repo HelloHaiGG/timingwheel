@@ -2,7 +2,7 @@ package utils
 
 import "sort"
 
-// up != -1 正序, 默认正序
+// way != -1 正序, 默认正序
 func SortStr(str []string, way int) []string {
 	if way != -1 {
 		//正序
