@@ -26,9 +26,10 @@ type TimingWheel struct {
 	slots       []*wrapList   //时间轮的每一个槽
 	total       int32         //时间轮的总任务量
 	started     bool          //是否已经开启
+
+	//task-map
+	taskManager map[string]*WarpTask //管理所有任务
 }
-
-
 
 //一些设置选项
 type Options struct {
@@ -46,6 +47,7 @@ func NewTimingWheel(ms time.Duration, size int32) *TimingWheel {
 		wheelSize: size,
 		interval:  ms * time.Duration(size),
 		slots:     make([]*wrapList, size),
+		taskManager:make(map[string]*WarpTask),
 	}
 }
 
@@ -64,17 +66,54 @@ func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string, err er
 		id:       id,
 		isRepeat: opts.IsRepeat,
 		round:    int32(opts.TimingTime) / p.wheelSize,                             //计算出所在圈
-		slotIdx:  int32(p.currentTime + int64(opts.TimingTime)%int64(p.wheelSize)), //
+		slotIdx:  int32(p.currentTime + int64(opts.TimingTime)%int64(p.wheelSize)), //计算出所在时间槽
 		task:     task,
 		ctx:      ctx,
 		cancel:   cancel,
 	}
 	p.addToList(wrapTask)
+
+	//添加到管理器
+	p.taskManager[id] = wrapTask
 	return
+}
+
+//删除任务
+func (p *TimingWheel) DelTask(id string) bool {
+	if !p.started {
+		return false
+	}
+	if _, ok := p.taskManager[id]; !ok {
+		return false
+	}
+	if p.delTask(id) {
+		delete(p.taskManager, id)
+		return true
+	}
+	return false
+}
+
+func (p *TimingWheel)Start()  {
+	p.started = true
+}
+
+func (p *TimingWheel)Stop()  {
+	p.started = false
 }
 
 //将任务添加到任务列表
 //先将任务添加到任务列表(取锁)
 func (p *TimingWheel) addToList(task *WarpTask) {
+	if p.slots[task.slotIdx] == nil {
+		p.slots[task.slotIdx] = new(wrapList)
+	}
 	p.slots[task.slotIdx].add(task)
+}
+
+func (p *TimingWheel) delTask(id string) bool {
+	task := p.taskManager[id]
+	if p.slots[task.slotIdx] == nil {
+		return false
+	}
+	return p.slots[task.slotIdx].del(id)
 }
