@@ -35,34 +35,42 @@ func (p *wrapList) del(id string) bool {
 			break
 		}
 	}
-	if task == nil{
+	if task == nil {
 		return false
 	}
 	p.Lock()
 	defer p.Unlock()
-	if task.round == 0{
+	if task.round == 0 {
 		//取消任务
 		task.cancel()
 	}
-	p.list = append(p.list[:idx],p.list[idx+1:]... )
+	p.list = append(p.list[:idx], p.list[idx+1:]...)
 	return true
 }
 
 //在任务队列中取出到期的任务
 func (p *wrapList) get() []*WarpTask {
-	if p.list == nil {
+	if p == nil || p.list == nil {
 		return nil
 	}
-	p.Lock()
-	defer p.Unlock()
 	var tasks []*WarpTask
 	for i, task := range p.list {
 		//因为任务放入队列后,对任务进行了排序,所以能保证队列前面的任务都是需要立即执行的
 		if task.round != 0 {
-			//取出要执行的任务
-			tasks = p.list[:i]
-			//并且对剩余任务 round 减一
+			//对剩余任务 round 减一
 			p.list[i].round--
+		} else {
+			//取出要执行的任务
+			tasks = append(tasks, task)
+			p.list = append(p.list[:i], p.list[i+1:]...)
+			delete(TWCline.taskManager, task.id)
+			//判断是否是需要重复执行的任务
+			if task.isRepeat {
+				//重复加入
+				if _, err := TWCline.AddTask(task.task, task.ops); err != nil {
+					//TODO 重复加入失败
+				}
+			}
 		}
 	}
 	p.total = int32(len(p.list))

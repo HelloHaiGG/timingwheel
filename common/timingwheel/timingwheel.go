@@ -3,6 +3,7 @@ package timingwheel
 import (
 	"context"
 	"errors"
+	"log"
 	"time"
 )
 
@@ -20,13 +21,17 @@ import (
 
 type TimingWheel struct {
 	tickMs      time.Duration //粒度,每一个槽的时间跨度 秒
-	wheelSize   int32         //槽的数量
+	wheelSize   int64         //槽的数量
 	interval    time.Duration //时间轮的跨度
 	currentTime int64         //时间轮走针
 	slots       []*wrapList   //时间轮的每一个槽
 	total       int32         //时间轮的总任务量
 	started     bool          //是否已经开启
 
+	cxt    context.Context
+	cancel context.CancelFunc
+
+	timer *time.Ticker //驱动走针
 	//task-map
 	taskManager map[string]*WarpTask //管理所有任务
 }
@@ -34,25 +39,36 @@ type TimingWheel struct {
 //一些设置选项
 type Options struct {
 	TimingTime time.Duration //执行时间
+	TaskId     string        //任务ID
 	IsRepeat   bool          //是否需要重复执行
 }
 
+var TWCline *TimingWheel
+
 //创建一个时间轮
-func NewTimingWheel(ms time.Duration, size int32) *TimingWheel {
+func NewTimingWheel(ms time.Duration, size int64) *TimingWheel {
 	if size <= 0 {
 		return nil
 	}
-	return &TimingWheel{
-		tickMs:    ms,
-		wheelSize: size,
-		interval:  ms * time.Duration(size),
-		slots:     make([]*wrapList, size),
-		taskManager:make(map[string]*WarpTask),
+	ctx, cancel := context.WithCancel(context.Background())
+	if TWCline == nil {
+		TWCline = &TimingWheel{
+			tickMs:      ms,
+			wheelSize:   size,
+			currentTime: 0,
+			interval:    ms * time.Duration(size),
+			slots:       make([]*wrapList, size),
+			taskManager: make(map[string]*WarpTask),
+			timer:       time.NewTicker(ms),
+			cxt:         ctx,
+			cancel:      cancel,
+		}
 	}
+	return TWCline
 }
 
 //添加任务
-func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string, err error) {
+func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string,err error) {
 	if !p.started {
 		err = errors.New("Timing-Wheel Not Working. You Should Start Timing-Wheel First. ")
 	}
@@ -60,21 +76,25 @@ func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string, err er
 		err = errors.New("Timing-Wheel Options Not Null! ")
 		return
 	}
-	id = "Task_" + time.Now().String() //TODO 需要替换成UUID
+	if opts.TaskId == "" {
+		opts.TaskId = "Task_" + time.Now().String() //TODO 需要替换成UUID
+	}
+	id = opts.TaskId
 	ctx, cancel := context.WithCancel(context.Background())
 	wrapTask := &WarpTask{
-		id:       id,
+		id:       opts.TaskId,
 		isRepeat: opts.IsRepeat,
-		round:    int32(opts.TimingTime) / p.wheelSize,                             //计算出所在圈
-		slotIdx:  int32(p.currentTime + int64(opts.TimingTime)%int64(p.wheelSize)), //计算出所在时间槽
+		round:    int64(opts.TimingTime) / p.wheelSize,                          //计算出所在圈
+		slotIdx:  int32((p.currentTime + int64(opts.TimingTime)) % p.wheelSize), //计算出所在时间槽
 		task:     task,
 		ctx:      ctx,
 		cancel:   cancel,
+		ops:      opts,
 	}
 	p.addToList(wrapTask)
 
 	//添加到管理器
-	p.taskManager[id] = wrapTask
+	p.taskManager[opts.TaskId] = wrapTask
 	return
 }
 
@@ -83,8 +103,11 @@ func (p *TimingWheel) DelTask(id string) bool {
 	if !p.started {
 		return false
 	}
-	if _, ok := p.taskManager[id]; !ok {
+	if task, ok := p.taskManager[id]; !ok {
 		return false
+	} else {
+		_ = task.task.OnStop()
+		task.cancel()
 	}
 	if p.delTask(id) {
 		delete(p.taskManager, id)
@@ -93,12 +116,42 @@ func (p *TimingWheel) DelTask(id string) bool {
 	return false
 }
 
-func (p *TimingWheel)Start()  {
+func (p *TimingWheel) Start() {
 	p.started = true
+	//时间轮指针驱动
+	go p.ticker()
 }
 
-func (p *TimingWheel)Stop()  {
+func (p *TimingWheel) Stop() {
 	p.started = false
+	p.cancel()
+	p.timer.Stop()
+}
+
+func (p *TimingWheel) ticker() {
+	for {
+		select {
+		case <-p.timer.C:
+			p.currentTime = (p.currentTime + 1) % p.wheelSize
+			//获取到指针指向的槽的到期任务
+			tasks := p.slots[p.currentTime%p.wheelSize].get()
+			//执行任务
+			for _, v := range tasks {
+				go func(ctx context.Context) {
+					select {
+					case <-ctx.Done():
+						return
+					default:
+						if err := v.task.Perform(); err != nil {
+							log.Printf("Task perform err: %v", err)
+						}
+					}
+				}(v.ctx)
+			}
+		case <-p.cxt.Done():
+			return
+		}
+	}
 }
 
 //将任务添加到任务列表
