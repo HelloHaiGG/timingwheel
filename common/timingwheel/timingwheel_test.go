@@ -22,25 +22,15 @@ func (p *HTask) OnStop() error {
 }
 
 func TestTimingWheel(t *testing.T) {
-
-	tw := NewTimingWheel(time.Second, 3)
+	tw := NewTimingWheel(time.Second, 10)
 	tw.Start()
 	for i := 0; i < 100; i++ {
 		id, err := tw.AddTask(&HTask{}, &Options{
 			TimingTime: 1,
 			IsRepeat:   false,
 		})
-		fmt.Println(id, err)
+		fmt.Println(i,id, err)
 	}
-	//go func() {
-	//	time.Sleep(time.Second * 11)
-	//	if tw.DelTask(id) {
-	//		fmt.Println("del success.")
-	//	} else {
-	//		fmt.Println("sss")
-	//	}
-	//}()
-
 	for {
 		t := time.NewTicker(time.Second)
 		select {

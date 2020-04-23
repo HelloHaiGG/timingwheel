@@ -134,7 +134,7 @@ func (p *TimingWheel) ticker() {
 		case <-p.timer.C:
 			p.currentTime = (p.currentTime + 1) % p.wheelSize
 			//获取到指针指向的槽的到期任务
-			tasks := p.slots[p.currentTime%p.wheelSize].get()
+			tasks := p.slots[p.currentTime].get()
 			//执行任务
 			for _, v := range tasks {
 				go func(ctx context.Context) { //TODO 需要使用协程池

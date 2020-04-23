@@ -8,9 +8,9 @@ import (
 type taskList []*WarpTask
 
 type wrapList struct {
-	total int32    //列表中的任务量
-	sync.Mutex     //对任务列表进行保护
-	list  taskList // 列表
+	total      int32    //列表中的任务量
+	sync.Mutex          //对任务列表进行保护
+	list       taskList // 列表
 }
 
 //向队列中添加任务
@@ -54,22 +54,28 @@ func (p *wrapList) get() []*WarpTask {
 		return nil
 	}
 	var tasks []*WarpTask
+	var flag bool //判断是否已经取出任务
 	for i, task := range p.list {
 		//因为任务放入队列后,对任务进行了排序,所以能保证队列前面的任务都是需要立即执行的
-		if task.round != 0 {
-			//对剩余任务 round 减一
-			p.list[i].round--
-		} else {
-			//取出要执行的任务
-			tasks = append(tasks, task)
-			p.list = append(p.list[:i], p.list[i+1:]...)
-			delete(TWCline.taskManager, task.id)
-			//判断是否是需要重复执行的任务
-			if task.isRepeat {
-				//重复加入
-				if _, err := TWCline.AddTask(task.task, task.ops); err != nil {
-					//TODO 重复加入失败
+		if task.round != 0 || (task.round == 0 && i == len(p.list)-1) {
+			if !flag {
+				//取出要执行的任务
+				tasks = append(tasks, p.list[:i+1]...)
+				//剩余的继续留在槽内
+				p.list = p.list[i+1:]
+				delete(TWCline.taskManager, task.id)
+				//判断是否是需要重复执行的任务
+				if task.isRepeat {
+					//重复加入
+					if _, err := TWCline.AddTask(task.task, task.ops); err != nil {
+						//TODO 重复加入失败
+					}
 				}
+				//标记已经取出任务
+				flag = true
+			} else {
+				//对剩余任务 round 减一
+				p.list[i].round--
 			}
 		}
 	}
