@@ -68,12 +68,12 @@ func NewTimingWheel(ms time.Duration, size int64) *TimingWheel {
 }
 
 //添加任务
-func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string,err error) {
+func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string, err error) {
 	if !p.started {
 		err = errors.New("Timing-Wheel Not Working. You Should Start Timing-Wheel First. ")
 	}
 	if opts == nil {
-		err = errors.New("Timing-Wheel Options Not Null! ")
+		err = errors.New("Timing-Wheel Options Is Null! ")
 		return
 	}
 	if opts.TaskId == "" {
