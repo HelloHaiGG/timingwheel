@@ -3,7 +3,8 @@ package timingwheel
 import (
 	"context"
 	"errors"
-	"log"
+	"github.com/spf13/cast"
+	"sync"
 	"time"
 )
 
@@ -19,6 +20,8 @@ import (
 
 // 此处使用普通时间轮实现
 
+var one sync.Once
+
 type TimingWheel struct {
 	tickMs      time.Duration //粒度,每一个槽的时间跨度 秒
 	wheelSize   int64         //槽的数量
@@ -33,14 +36,23 @@ type TimingWheel struct {
 
 	timer *time.Ticker //驱动走针
 	//task-map
-	taskManager map[string]*WarpTask //管理所有任务
+	taskManager map[string]*WrapTask //管理所有任务
+	//err-handle
+	handleErr chan WrapError
 }
 
 //一些设置选项
 type Options struct {
-	TimingTime time.Duration //执行时间
-	TaskId     string        //任务ID
-	IsRepeat   bool          //是否需要重复执行
+	TimingTime    time.Duration //执行时间
+	TaskId        string        //任务ID
+	IsRepeat      bool          //是否需要重复执行
+	NeedHandleErr bool          //是否需要处理错误信息
+}
+
+//异常封装
+type WrapError struct {
+	TaskId string
+	Err    error
 }
 
 var TWCline *TimingWheel
@@ -50,20 +62,23 @@ func NewTimingWheel(ms time.Duration, size int64) *TimingWheel {
 	if size <= 0 {
 		return nil
 	}
-	ctx, cancel := context.WithCancel(context.Background())
-	if TWCline == nil {
-		TWCline = &TimingWheel{
-			tickMs:      ms,
-			wheelSize:   size,
-			currentTime: 0,
-			interval:    ms * time.Duration(size),
-			slots:       make([]*wrapList, size),
-			taskManager: make(map[string]*WarpTask),
-			timer:       time.NewTicker(ms),
-			cxt:         ctx,
-			cancel:      cancel,
+	one.Do(func() {
+		ctx, cancel := context.WithCancel(context.Background())
+		if TWCline == nil {
+			TWCline = &TimingWheel{
+				tickMs:      ms,
+				wheelSize:   size,
+				currentTime: 0,
+				interval:    ms * time.Duration(size),
+				slots:       make([]*wrapList, size),
+				taskManager: make(map[string]*WrapTask),
+				timer:       time.NewTicker(ms),
+				cxt:         ctx,
+				cancel:      cancel,
+				handleErr:   make(chan WrapError),
+			}
 		}
-	}
+	})
 	return TWCline
 }
 
@@ -77,11 +92,11 @@ func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string, err er
 		return
 	}
 	if opts.TaskId == "" {
-		opts.TaskId = "Task_" + time.Now().String() //TODO 需要替换成UUID
+		opts.TaskId = "Task_" + cast.ToString(time.Now().Unix()) //TODO 需要替换成UUID
 	}
 	id = opts.TaskId
 	ctx, cancel := context.WithCancel(context.Background())
-	wrapTask := &WarpTask{
+	wrapTask := &WrapTask{
 		id:       opts.TaskId,
 		isRepeat: opts.IsRepeat,
 		round:    int64(opts.TimingTime) / p.wheelSize,                          //计算出所在圈
@@ -142,8 +157,8 @@ func (p *TimingWheel) ticker() {
 					case <-ctx.Done():
 						return
 					default:
-						if err := v.task.Perform(); err != nil {
-							log.Printf("Task perform err: %v", err)
+						if err := v.task.Perform(); err != nil && v.ops.NeedHandleErr {
+							p.handleErr <- WrapError{v.id, err}
 						}
 					}
 				}(v.ctx)
@@ -156,7 +171,7 @@ func (p *TimingWheel) ticker() {
 
 //将任务添加到任务列表
 //先将任务添加到任务列表(取锁)
-func (p *TimingWheel) addToList(task *WarpTask) {
+func (p *TimingWheel) addToList(task *WrapTask) {
 	if p.slots[task.slotIdx] == nil {
 		p.slots[task.slotIdx] = new(wrapList)
 	}

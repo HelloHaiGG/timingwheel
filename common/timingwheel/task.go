@@ -16,7 +16,7 @@ type TimingTask interface {
 }
 
 //对任务的包装
-type WarpTask struct {
+type WrapTask struct {
 	id       string     //任务标识
 	isRepeat bool       //是否是需要重复执行的任务
 	round    int64      //在第几轮被执行

@@ -2,6 +2,7 @@ package timingwheel
 
 import (
 	"fmt"
+	"math/rand"
 	"testing"
 	"time"
 )
@@ -25,8 +26,9 @@ func TestTimingWheel(t *testing.T) {
 	tw := NewTimingWheel(time.Second, 10)
 	tw.Start()
 	for i := 0; i < 100; i++ {
+		t := rand.Intn(100)
 		id, err := tw.AddTask(&HTask{}, &Options{
-			TimingTime: 1,
+			TimingTime: time.Duration(t) * time.Second,
 			IsRepeat:   false,
 		})
 		fmt.Println(i,id, err)
