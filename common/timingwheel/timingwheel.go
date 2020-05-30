@@ -43,7 +43,7 @@ type TimingWheel struct {
 
 //一些设置选项
 type Options struct {
-	TimingTime    time.Duration //执行时间
+	TimingTime    int64 //执行时间
 	TaskId        string        //任务ID
 	IsRepeat      bool          //是否需要重复执行
 	NeedHandleErr bool          //是否需要处理错误信息
@@ -99,8 +99,8 @@ func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (id string, err er
 	wrapTask := &WrapTask{
 		id:       opts.TaskId,
 		isRepeat: opts.IsRepeat,
-		round:    int64(opts.TimingTime) / p.wheelSize,                          //计算出所在圈
-		slotIdx:  int32((p.currentTime + int64(opts.TimingTime)) % p.wheelSize), //计算出所在时间槽
+		round:    opts.TimingTime / p.wheelSize,                          //计算出所在圈
+		slotIdx:  int32((p.currentTime + opts.TimingTime) % p.wheelSize), //计算出所在时间槽
 		task:     task,
 		ctx:      ctx,
 		cancel:   cancel,

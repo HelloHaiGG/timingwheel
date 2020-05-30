@@ -80,7 +80,7 @@ func (p *wrapList) CatOutTask() []*WrapTask {
 	}
 	if index > -1 {
 		sub := p.list[:index+1]
-		p.list = append(p.list[index+1:], p.list[index:len(p.list)-1]...)
+		p.list = p.list[index+1:]
 		return sub
 	}
 	return nil
