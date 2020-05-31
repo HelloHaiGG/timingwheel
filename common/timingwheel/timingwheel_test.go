@@ -45,3 +45,30 @@ func TestTimingWheel(t *testing.T) {
 		}
 	}
 }
+
+func TestTimingWheel_AddTask(t *testing.T) {
+	tw := NewTimingWheel(time.Second, 10)
+	tw.Start()
+	go func() {
+		for {
+			t := time.NewTicker(time.Second * 30)
+			select {
+			case <-t.C:
+				t := rand.Int63n(10)
+				id, err := tw.AddTask(&HTask{}, &Options{
+					TimingTime:    t,
+					IsRepeat:      false,
+					NeedHandleErr: true,
+				})
+				fmt.Println("Auto Add:", t, id, err)
+			}
+		}
+	}()
+	id, err := tw.AddTask(&HTask{}, &Options{
+		TimingTime: 8,
+		IsRepeat:   true,
+	})
+	fmt.Println(id, err)
+	select {
+	}
+}
