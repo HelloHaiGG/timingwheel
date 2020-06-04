@@ -1,12 +1,19 @@
 package router
 
 import (
+	"HelloMyWorld/gateway"
 	"HelloMyWorld/gateway/app/safety"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func UserRouter() *gin.Engine {
+func init() {
+	gateway.StepForward("/jx/app", []*gateway.WrapReq{
+		{Desc: "", Method: "", Router: "", Handle: nil,},
+	})
+}
+
+func APPRouter() *gin.Engine {
 	router := gin.Default()
 
 	//中间件
@@ -18,6 +25,8 @@ func UserRouter() *gin.Engine {
 		//签名验证
 		safety.VerifySign,
 	)
+	//加载路由
+	gateway.Loading(router)
 
 	router.GET("/api", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{

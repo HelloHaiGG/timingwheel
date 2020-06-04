@@ -10,7 +10,7 @@ import (
 
 /**
 日志整理模块
-通过 kafka 将每个微服务产生的log集中存储到mongo/tablestore,方便便利
+通过 kafka 将每个微服务产生的log集中存储到mongo/tablestore
 */
 
 func main() {
