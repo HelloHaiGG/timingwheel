@@ -1,13 +1,14 @@
 package config
 
 type appCfg struct {
-	LTopic  LogTopic `yaml:"l_topic"`
-	Kafka   KafkaCfg `yaml:"kafka"`
-	Servers Servers  `yaml:"servers"`
-	Redis   RedisCfg `yaml:"redis"`
-	Mysql   MysqlCfg `yaml:"mysql"`
-	Grpc    GrpcCfg  `yaml:"grpc"`
-	Etcd    EtcdCfg  `yaml:"etcd"`
+	LTopic     LogTopic      `yaml:"l_topic"`
+	Kafka      KafkaCfg      `yaml:"kafka"`
+	Servers    Servers       `yaml:"servers"`
+	Redis      RedisCfg      `yaml:"redis"`
+	Mysql      MysqlCfg      `yaml:"mysql"`
+	Grpc       GrpcCfg       `yaml:"grpc"`
+	Etcd       EtcdCfg       `yaml:"etcd"`
+	VerifyCode VerifyCodeCfg `yaml:"verify_code"`
 }
 
 type LogTopic struct {
@@ -61,4 +62,10 @@ type EtcdCfg struct {
 //grpc
 type GrpcCfg struct {
 	CallTimeOut int32 `yaml:"call_time_out"`
+}
+
+//图形验证
+type VerifyCodeCfg struct {
+	Key        string `yaml:"key"`
+	Expiration int64  `yaml:"expiration"`
 }

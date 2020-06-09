@@ -14,6 +14,16 @@ func IsExist(f string) bool {
 	return err == nil || os.IsExist(err)
 }
 
+//创建文件夹
+func CreateFile(path string) error {
+	if !IsExist(path) {
+		if err := os.Mkdir(path, 0777); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 //读取文件的内容
 func HandFile(path string) ([]byte, error) {
 	b, err := ioutil.ReadFile(path)
@@ -45,5 +55,3 @@ func ReadFileForLine(path string) ([]string, error) {
 	}
 	return res, nil
 }
-
-

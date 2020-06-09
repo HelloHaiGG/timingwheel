@@ -20,9 +20,9 @@ mysql:
   is_debug: true
 
 redis:
-  host: 127.0.0.1
+  host: 182.92.239.63 #127.0.0.1
   port: 6379
-  password: 123456
+  password: #123456
   db: 0
 
 etcd:
@@ -34,3 +34,7 @@ etcd:
 
 grpc:
   call_time_out: 10 #秒
+
+verify_code:
+  key: "VerifyCode:%s"
+  expiration: 5 * 60 #秒

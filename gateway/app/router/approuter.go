@@ -9,7 +9,7 @@ import (
 
 func init() {
 	gateway.StepForward("/jx/app", []*gateway.WrapReq{
-		{Desc: "", Method: "", Router: "", Handle: nil,},
+		{Desc: "服务测试", Method: "GET", Router: "/health", Handle: ServerStatus,},
 	})
 }
 
@@ -28,16 +28,9 @@ func APPRouter() *gin.Engine {
 	//加载路由
 	gateway.Loading(router)
 
-	router.GET("/api", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{
-			"msg": context.Param("a"),
-		})
-	})
-	router.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, gin.H{
-			"msg": "重定向",
-		})
-	})
-
 	return router
+}
+
+func ServerStatus(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK,"Hello,Jx.")
 }
