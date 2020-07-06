@@ -52,10 +52,9 @@ func SendSMS(ctx *gin.Context) {
 	if ok := utils.CheckCode(params.ReqId, params.Code); !ok {
 		gateway.WrapErrResponse(ctx, common.InvalidCodeErr, common.InvalidCodeDesc)
 	}
-	//TODO 发送短信
+	//TODO kafka发送短信
 	gateway.SucResponse(ctx)
 }
-
 func CheckSMS(ctx *gin.Context) {
 
 }

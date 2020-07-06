@@ -9,7 +9,11 @@ import (
 
 func init() {
 	gateway.StepForward("/jx/app", []*gateway.WrapReq{
-		{Desc: "服务测试", Method: "GET", Router: "/health", Handle: ServerStatus,},
+		{Desc: "服务测试", Method: "GET", Router: "/health", Handle: ServerStatus, Safe: true},
+		{Desc: "服务测试", Method: "GET", Router: "", Handle: ServerStatus, Safe: true},
+	})
+	gateway.StepForward("/", []*gateway.WrapReq{
+		{Desc: "服务测试", Method: "GET", Router: "", Handle: ServerStatus, Safe: true},
 	})
 }
 
@@ -32,5 +36,5 @@ func APPRouter() *gin.Engine {
 }
 
 func ServerStatus(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK,"Hello,Jx.")
+	ctx.JSON(http.StatusOK, "Hello,Jx.")
 }

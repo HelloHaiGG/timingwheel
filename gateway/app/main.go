@@ -1,8 +1,10 @@
 package main
 
 import (
+	"HelloMyWorld/common/ielasticsearch"
 	"HelloMyWorld/common/iredis"
 	"HelloMyWorld/config"
+	_ "HelloMyWorld/gateway/app/handles"
 	"HelloMyWorld/gateway/app/router"
 	"golang.org/x/sync/errgroup"
 	"log"
@@ -23,9 +25,17 @@ func main() {
 		DB:       config.APPConfig.Redis.DB,
 		Password: config.APPConfig.Redis.Password,
 	})
+	ielasticsearch.Init(&ielasticsearch.IOptions{
+		Host:     config.APPConfig.ES.Host,
+		Sniff:    config.APPConfig.ES.Sniff,
+		User:     config.APPConfig.ES.User,
+		Password: config.APPConfig.ES.Password,
+		TraceLog: config.APPConfig.ES.TraceLog,
+		ErrLog:   config.APPConfig.ES.ErrLog,
+	})
 	//用户网关服务
 	appServer = &http.Server{
-		Addr:         "127.255.10.1:59277", //及鲜app
+		Addr:         "127.0.0.1:59277", //及鲜app
 		Handler:      router.APPRouter(),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,

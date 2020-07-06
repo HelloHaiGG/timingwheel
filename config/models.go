@@ -9,6 +9,7 @@ type appCfg struct {
 	Grpc       GrpcCfg       `yaml:"grpc"`
 	Etcd       EtcdCfg       `yaml:"etcd"`
 	VerifyCode VerifyCodeCfg `yaml:"verify_code"`
+	ES         ESCfg         `yaml:"es"`
 }
 
 type LogTopic struct {
@@ -68,4 +69,14 @@ type GrpcCfg struct {
 type VerifyCodeCfg struct {
 	Key        string `yaml:"key"`
 	Expiration int64  `yaml:"expiration"`
+}
+
+//ElasticSearch
+type ESCfg struct {
+	Host     string `yaml:"host"`
+	User     string `yaml:"user"`
+	Password string `yaml:"password"`
+	TraceLog string `yaml:"trace_log"`
+	ErrLog   string `yaml:"err_log"`
+	Sniff    bool   `yaml:"sniff"`
 }

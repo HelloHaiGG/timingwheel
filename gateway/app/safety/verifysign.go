@@ -3,6 +3,7 @@ package safety
 import (
 	"HelloMyWorld/common"
 	"HelloMyWorld/common/consts"
+	"HelloMyWorld/gateway"
 	"HelloMyWorld/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,10 @@ var (
 
 func VerifySign(c *gin.Context) {
 
+	if gateway.IsSafeApi(c.Request.Method, c.Request.URL.Path) {
+		c.Next()
+		return
+	}
 	ts := c.Request.Header.Get(consts.TimeStamp)
 	version := c.Request.Header.Get(consts.Version)
 	sign := c.Request.Header.Get(consts.Sign)
