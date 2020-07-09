@@ -25,9 +25,9 @@ func APPRouter() *gin.Engine {
 		//限流器
 		safety.Limit,
 		//必要参数验证
-		safety.RequiredParams,
+		//safety.RequiredParams,
 		//签名验证
-		safety.VerifySign,
+		//safety.VerifySign,
 	)
 	//加载路由
 	gateway.Loading(router)

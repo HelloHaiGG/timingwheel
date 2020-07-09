@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+//发送短信
+message SendSms{
+  string Phone = 1;
+}

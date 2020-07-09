@@ -10,6 +10,8 @@ import (
 //是否将日志写入到文件
 var ToFile bool
 
+var Ins *ILogger
+
 type ILogger struct {
 	instance *logrus.Logger
 }
@@ -60,6 +62,7 @@ func Init(server string) *ILogger {
 		Field:  "where",
 		Skip:   9,
 	})
+	Ins = iLogger
 	return iLogger
 }
 

@@ -25,17 +25,17 @@ func CreateImageCode() (string, string) {
 	//随机背景颜色
 
 	cfg := base64Captcha.ConfigCharacter{
-		Height:                 60,
-		Width:                  180,
-		Mode:                   base64Captcha.CaptchaModeNumberAlphabet, //数字和字符模式
-		IsUseSimpleFont:        true,
-		ComplexOfNoiseText:     base64Captcha.CaptchaComplexHigh, //干扰文本数量
-		ComplexOfNoiseDot:      base64Captcha.CaptchaComplexHigh, //噪点计数
-		IsShowHollowLine:       true,                             //显示空心线
-		IsShowNoiseDot:         true,                             //显示噪点
-		IsShowNoiseText:        true,                             //显示干扰文本
-		IsShowSlimeLine:        true,                             //史莱姆线
-		IsShowSineLine:         true,                             //正弦线
+		Height:          60,
+		Width:           180,
+		Mode:            base64Captcha.CaptchaModeNumberAlphabet, //数字和字符模式
+		IsUseSimpleFont: true,
+		//ComplexOfNoiseText:     base64Captcha.CaptchaComplexHigh, //干扰文本数量
+		ComplexOfNoiseDot: base64Captcha.CaptchaComplexHigh, //噪点计数
+		IsShowHollowLine:  true,                             //显示空心线
+		//IsShowNoiseDot:         true,                             //显示噪点
+		//IsShowNoiseText:        true,                             //显示干扰文本
+		//IsShowSlimeLine:        true,                             //史莱姆线
+		IsShowSineLine:         true, //正弦线
 		ChineseCharacterSource: "",
 		SequencedCharacters:    nil,
 		UseCJKFonts:            false,
@@ -43,13 +43,13 @@ func CreateImageCode() (string, string) {
 		BgHashColor:            randomColor(),
 		BgColor:                nil,
 	}
-	id, cap := base64Captcha.GenerateCaptcha("", cfg)
-	return id, base64Captcha.CaptchaWriteToBase64Encoding(cap)
+	id, c := base64Captcha.GenerateCaptcha("", cfg)
+	return id, base64Captcha.CaptchaWriteToBase64Encoding(c)
 }
 
 //通过验证码Id和验证码验证
 func CheckCode(id, code string) bool {
-	return base64Captcha.VerifyCaptcha(id, code)
+	return base64Captcha.VerifyCaptchaAndIsClear(id, code, false)
 }
 
 func randomLen() int {

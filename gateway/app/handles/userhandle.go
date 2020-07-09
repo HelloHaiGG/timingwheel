@@ -2,6 +2,8 @@ package handles
 
 import (
 	"HelloMyWorld/common"
+	sms "HelloMyWorld/common/entity/kafka"
+	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/common/iredis"
 	"HelloMyWorld/config"
 	"HelloMyWorld/gateway"
@@ -9,6 +11,7 @@ import (
 	"HelloMyWorld/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gogo/protobuf/proto"
 	"time"
 )
 
@@ -25,9 +28,10 @@ func GetCode(ctx *gin.Context) {
 	reqId, image := utils.CreateImageCode()
 	_, err := iredis.RedisCli.Set(
 		fmt.Sprintf(config.APPConfig.VerifyCode.Key, reqId),
-		"image_code", time.Duration(config.APPConfig.VerifyCode.Expiration)).Result()
+		"image_code", time.Duration(config.APPConfig.VerifyCode.Expiration)*time.Second).Result()
 	if err != nil {
-		gateway.WrapErrResponse(ctx, common.OpsRedisErr, common.ServerErrDesc)
+		gateway.WrapErrResponse(ctx, err, common.OpsRedisErr, common.ServerErrDesc)
+		return
 		//TODO 日志
 	}
 	gateway.WrapResponse(ctx, struct {
@@ -40,19 +44,28 @@ func SendSMS(ctx *gin.Context) {
 	var params models.SendSMSParams
 	err := ctx.ShouldBindJSON(&params)
 	if err != nil {
-		gateway.WrapErrResponse(ctx, common.ParamsErr, common.ParamsErrDesc)
+		gateway.WrapErrResponse(ctx, err, common.ParamsErr, common.ParamsErrDesc)
+		return
 	}
 	if ok := utils.VerifyPhone(params.Phone); !ok {
-		gateway.WrapErrResponse(ctx, common.InvalidPhoneNumberErr, common.InvalidPhoneNumberDesc)
+		gateway.WrapErrResponse(ctx, err, common.InvalidPhoneNumberErr, common.InvalidPhoneNumberDesc)
+		return
 	}
-	_, err = iredis.RedisCli.Get(fmt.Sprintf(config.APPConfig.VerifyCode.Key, params.ReqId, params.ReqId)).Result()
+	_, err = iredis.RedisCli.Get(fmt.Sprintf(config.APPConfig.VerifyCode.Key, params.ReqId)).Result()
 	if err != nil {
-		gateway.WrapErrResponse(ctx, common.VerifyCodeExpirationErr, common.VerifyCodeExpirationDesc)
+		gateway.WrapErrResponse(ctx, err, common.InvalidCodeErr, common.InvalidCodeDesc)
+		return
 	}
 	if ok := utils.CheckCode(params.ReqId, params.Code); !ok {
-		gateway.WrapErrResponse(ctx, common.InvalidCodeErr, common.InvalidCodeDesc)
+		gateway.WrapErrResponse(ctx, nil, common.InvalidCodeErr, common.InvalidCodeDesc)
+		return
 	}
-	//TODO kafka发送短信
+	//验证通过,清除
+	iredis.RedisCli.Del(fmt.Sprintf(config.APPConfig.VerifyCode.Key, params.ReqId))
+	ikafka.Kafka.ASyncSendMsg(&ikafka.KafkaMsg{
+		Topic: common.SendSMSTopic,
+		Value: proto.MarshalTextString(&sms.SendSms{Phone: params.Phone}),
+	})
 	gateway.SucResponse(ctx)
 }
 func CheckSMS(ctx *gin.Context) {

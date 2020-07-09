@@ -25,15 +25,15 @@ func Init(ops *IOptions) {
 	//需要sniff关闭,否则负载均衡会影响
 	client, err := es.NewClientFromConfig(cfg)
 	if err != nil {
-		log.Fatal("New es client config fail.")
+		log.Fatal("New es client config fail.\n")
 	}
 	ESClient = client
 	ctx, _ := context.WithTimeout(context.Background(), time.Duration(3)*time.Second)
 	result, code, err := ESClient.Ping(cfg.URL).Do(ctx)
 	if err != nil || code != http.StatusOK {
-		log.Fatal("Connect elastic search fail.")
+		log.Fatal("Connect elastic search fail.\n")
 	}
-	fmt.Printf("Connect elastic search success. es version: %s", result.Version.Number)
+	fmt.Printf("Connect elastic search success. es version: %s \n", result.Version.Number)
 }
 
 type IOptions struct {

@@ -66,7 +66,7 @@ func Init(broker []string) {
 			case suc = <-msg:
 				value, _ = suc.Value.Encode()
 				key, _ = suc.Key.Encode()
-				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=\"%s\";key=\"%s\";value=\"%s\".\n", suc.Timestamp, suc.Topic, key, value)
+				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=[%s];key=[%s];value=[%s]\n", suc.Timestamp, suc.Topic, key, value)
 			}
 		}
 	})
@@ -80,7 +80,7 @@ func Init(broker []string) {
 			case err = <-errors:
 				value, _ = err.Msg.Value.Encode()
 				key, _ = err.Msg.Key.Encode()
-				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=\"%s\";key=\"%s\";value=\"%s\".\n", err.Msg.Timestamp, err.Msg.Topic, key, value)
+				fmt.Printf("Time：%s Kafka Send Msg Suc!topic=[%s];key=[%s];value=[%s]\n", err.Msg.Timestamp, err.Msg.Topic, key, value)
 			}
 		}
 	})

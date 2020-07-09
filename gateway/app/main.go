@@ -2,6 +2,8 @@ package main
 
 import (
 	"HelloMyWorld/common/ielasticsearch"
+	"HelloMyWorld/common/ikafka"
+	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/common/iredis"
 	"HelloMyWorld/config"
 	_ "HelloMyWorld/gateway/app/handles"
@@ -19,6 +21,7 @@ func main() {
 	eg = &errgroup.Group{}
 
 	config.Init()
+	ilogger.Init("gateway-app")
 	iredis.Init(&iredis.IOptions{
 		Host:     config.APPConfig.Redis.Host,
 		Port:     config.APPConfig.Redis.Port,
@@ -33,6 +36,7 @@ func main() {
 		TraceLog: config.APPConfig.ES.TraceLog,
 		ErrLog:   config.APPConfig.ES.ErrLog,
 	})
+	ikafka.Init(config.APPConfig.Kafka.Brokers)
 	//用户网关服务
 	appServer = &http.Server{
 		Addr:         "127.0.0.1:59277", //及鲜app

@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"HelloMyWorld/common"
+	"HelloMyWorld/common/ilogger"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -32,7 +33,8 @@ func WrapErrRequest(ctx *gin.Context, httpCode int) {
 	ctx.Abort()
 }
 
-func WrapErrResponse(ctx *gin.Context, code int, msg string) {
+func WrapErrResponse(ctx *gin.Context, err error, code int, msg string) {
+	ilogger.Ins.Error(err)
 	ctx.JSON(http.StatusOK, &Result{
 		Code: code,
 		Msg:  msg,
