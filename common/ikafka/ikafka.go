@@ -157,7 +157,7 @@ func (p *kafkaCli) GroupListenToKafka(brokers []string, groupId string, topics [
 	cfg.Version = sarama.V2_3_0_0
 	c, err := cluster.NewConsumer(brokers, groupId, topics, cfg)
 	if err != nil {
-		log.Fatal("初始化消费组失败.")
+		log.Fatal("初始化消费组失败 Err:",err)
 		return
 	}
 	//

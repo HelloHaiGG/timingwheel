@@ -6,13 +6,11 @@ import (
 	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/config"
+	"fmt"
 	cluster "github.com/bsm/sarama-cluster"
 	"github.com/gogo/protobuf/proto"
 )
 
-func init() {
-	go RegisterListener()
-}
 //处理通过kafka发送的消息
 
 func RegisterListener() {
@@ -28,10 +26,12 @@ func RegisterListener() {
 				}
 				switch entity.(type) {
 				case *sms.SendSms:
+					fmt.Println(entity)
 				default:
 					ilogger.Ins.Warn("Unmatch type in kafka group id: ", common.RegisterGroupID)
 				}
-			case _ = <-c.Errors():
+			case err := <-c.Errors():
+				ilogger.Ins.Error(err)
 				//TODO
 			}
 		}
