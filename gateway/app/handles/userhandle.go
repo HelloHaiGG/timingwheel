@@ -4,6 +4,7 @@ import (
 	"HelloMyWorld/common"
 	sms "HelloMyWorld/common/entity/kafka"
 	"HelloMyWorld/common/ikafka"
+	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/common/iredis"
 	"HelloMyWorld/config"
 	"HelloMyWorld/gateway"
@@ -31,8 +32,8 @@ func GetCode(ctx *gin.Context) {
 		"image_code", time.Duration(config.APPConfig.VerifyCode.Expiration)*time.Second).Result()
 	if err != nil {
 		gateway.WrapErrResponse(ctx, err, common.OpsRedisErr, common.ServerErrDesc)
+		ilogger.Ins.Error(err)
 		return
-		//TODO 日志
 	}
 	gateway.WrapResponse(ctx, struct {
 		ID    string `json:"id"`
@@ -51,21 +52,32 @@ func SendSMS(ctx *gin.Context) {
 		gateway.WrapErrResponse(ctx, err, common.InvalidPhoneNumberErr, common.InvalidPhoneNumberDesc)
 		return
 	}
-	_, err = iredis.RedisCli.Get(fmt.Sprintf(config.APPConfig.VerifyCode.Key, params.ReqId)).Result()
-	if err != nil {
-		gateway.WrapErrResponse(ctx, err, common.InvalidCodeErr, common.InvalidCodeDesc)
-		return
-	}
-	if ok := utils.CheckCode(params.ReqId, params.Code); !ok {
-		gateway.WrapErrResponse(ctx, nil, common.InvalidCodeErr, common.InvalidCodeDesc)
-		return
-	}
+	//_, err = iredis.RedisCli.Get(fmt.Sprintf(config.APPConfig.VerifyCode.Key, params.ReqId)).Result()
+	//if err != nil {
+	//	gateway.WrapErrResponse(ctx, err, common.InvalidCodeErr, common.InvalidCodeDesc)
+	//	return
+	//}
+	//if ok := utils.CheckCode(params.ReqId, params.Code); !ok {
+	//	gateway.WrapErrResponse(ctx, nil, common.InvalidCodeErr, common.InvalidCodeDesc)
+	//	return
+	//}
 	//验证通过,清除
 	iredis.RedisCli.Del(fmt.Sprintf(config.APPConfig.VerifyCode.Key, params.ReqId))
+	//生成短信验证码
+	sCode, err := utils.Ins.RandStrWithSeedChar("0,1,2,3,4,5,6,7,8,9", time.Now().Unix())
+	if err != nil {
+		ilogger.Ins.Error(err)
+	}
 	ikafka.Kafka.ASyncSendMsg(&ikafka.KafkaMsg{
 		Topic: common.SendSMSTopic,
-		Value: proto.MarshalTextString(&sms.SendSms{Phone: params.Phone}),
+		Key:   common.SendSMSKey,
+		Value: proto.MarshalTextString(&sms.SendSms{Phone: params.Phone, Code: sCode, EffeTime: "5"}),
 	})
+	_, err = iredis.RedisCli.Set(params.Phone, sCode, 5*60*time.Second).Result()
+	if err != nil {
+		ilogger.Ins.Error(err)
+		return
+	}
 	gateway.SucResponse(ctx)
 }
 func CheckSMS(ctx *gin.Context) {

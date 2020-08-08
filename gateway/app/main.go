@@ -1,13 +1,16 @@
 package main
 
 import (
+	"HelloMyWorld/common"
 	"HelloMyWorld/common/ielasticsearch"
 	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/common/iredis"
+	"HelloMyWorld/common/tencentcloud"
 	"HelloMyWorld/config"
 	_ "HelloMyWorld/gateway/app/handles"
 	"HelloMyWorld/gateway/app/router"
+	"HelloMyWorld/utils"
 	"golang.org/x/sync/errgroup"
 	"log"
 	"net/http"
@@ -37,6 +40,9 @@ func main() {
 		ErrLog:   config.APPConfig.ES.ErrLog,
 	})
 	ikafka.Init(config.APPConfig.Kafka.Brokers)
+	tencentcloud.Init(common.SecretId, common.SecretKey)
+	//随机码生成
+	utils.InitMySnow(5)
 	//用户网关服务
 	appServer = &http.Server{
 		Addr:         "127.0.0.1:59277", //及鲜app

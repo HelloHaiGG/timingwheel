@@ -3,4 +3,6 @@ syntax = "proto3";
 //发送短信
 message SendSms{
   string Phone = 1;
+  string Code = 2;
+  string EffeTime = 3;//有效时长,分钟
 }

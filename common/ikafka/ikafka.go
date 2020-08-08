@@ -157,10 +157,9 @@ func (p *kafkaCli) GroupListenToKafka(brokers []string, groupId string, topics [
 	cfg.Version = sarama.V2_3_0_0
 	c, err := cluster.NewConsumer(brokers, groupId, topics, cfg)
 	if err != nil {
-		log.Fatal("初始化消费组失败 Err:",err)
+		log.Fatal("初始化消费组失败 Err:", err)
 		return
 	}
-	//
 	go func() {
 		for {
 			select {
@@ -196,6 +195,7 @@ func (p *kafkaCli) ListenToKafka(brokers []string, topic string, handler func(co
 	for e := range partitions {
 		pc, err = c.ConsumePartition(topic, partitions[e], sarama.OffsetNewest)
 		if err != nil {
+			log.Println("Get message form partition err:", err)
 			continue
 		}
 		//记录存在消息的分区数量

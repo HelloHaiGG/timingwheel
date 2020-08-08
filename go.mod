@@ -26,6 +26,7 @@ require (
 	github.com/hpcloud/tail v1.0.0
 	github.com/jinzhu/gorm v1.9.12
 	github.com/jonboulle/clockwork v0.1.0 // indirect
+	github.com/json-iterator/go v1.1.9
 	github.com/mojocn/base64Captcha v1.2.2
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/olivere/elastic/v7 v7.0.17
@@ -36,7 +37,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/soheilhy/cmux v0.1.4 // indirect
 	github.com/spf13/cast v1.3.1
-	github.com/tencentcloud/tencentcloud-sdk-go v3.0.207+incompatible // indirect
+	github.com/tencentcloud/tencentcloud-sdk-go v3.0.207+incompatible
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	go.etcd.io/bbolt v1.3.4 // indirect

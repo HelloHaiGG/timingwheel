@@ -14,9 +14,11 @@ import (
 头N位固定乱序生成
 1位时间位
 2位顺序位
-该算法理论上一秒内可生成不重复ID个数位 len(SendChar) * len(SendChar)
+当随机种子设置为秒时,该算法理论上一秒内可生成不重复ID个数位 len(SendChar) * len(SendChar)
 */
 const SeedChar = "a,b,c,d,e,f,g,h,j,k,m,n,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,J,K,M,N,P,Q,R,S,T,U,V,W,X,Y,Z,2,3,4,5,6,7,8,9"
+
+var Ins *MySnow
 
 type MySnow struct {
 	LastTime int64
@@ -28,14 +30,18 @@ type MySnow struct {
 }
 
 func InitMySnow(len int) *MySnow {
-	return &MySnow{Len: len, LastTime: time.Now().Unix(), NowTime: time.Now().Unix()}
+	Ins = &MySnow{Len: len, LastTime: time.Now().Unix(), NowTime: time.Now().Unix()}
+	return Ins
 }
 
 func (p *MySnow) RandString(seed int64) (string, error) {
 	if p.Len <= 5 {
 		return "", errors.New("String len to short. ")
 	}
-	chars := strings.Split(SeedChar, ",")
+	return p.todo(strings.Split(SeedChar, ","), seed)
+}
+
+func (p *MySnow) todo(chars []string, seed int64) (string, error) {
 	SCount := len(chars)
 	rand.Seed(seed)
 	buffer := &bytes.Buffer{}
@@ -74,4 +80,11 @@ func (p *MySnow) RandString(seed int64) (string, error) {
 	}
 	p.LastTime = time.Now().Unix()
 	return buffer.String(), nil
+}
+
+func (p *MySnow) RandStrWithSeedChar(str string, seed int64) (string, error) {
+	if str != "" {
+		return p.todo(strings.Split(str, ","), seed)
+	}
+	return p.todo(strings.Split(SeedChar, ","), seed)
 }

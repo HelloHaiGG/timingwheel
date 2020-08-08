@@ -22,8 +22,11 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//发送短信
 type SendSms struct {
 	Phone                string   `protobuf:"bytes,1,opt,name=Phone,proto3" json:"Phone,omitempty"`
+	Code                 string   `protobuf:"bytes,2,opt,name=Code,proto3" json:"Code,omitempty"`
+	EffeTime             string   `protobuf:"bytes,3,opt,name=EffeTime,proto3" json:"EffeTime,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -69,6 +72,20 @@ func (m *SendSms) GetPhone() string {
 	return ""
 }
 
+func (m *SendSms) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
+func (m *SendSms) GetEffeTime() string {
+	if m != nil {
+		return m.EffeTime
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*SendSms)(nil), "SendSms")
 }
@@ -76,13 +93,15 @@ func init() {
 func init() { proto.RegisterFile("sms.proto", fileDescriptor_c8d8bdc537111860) }
 
 var fileDescriptor_c8d8bdc537111860 = []byte{
-	// 88 bytes of a gzipped FileDescriptorProto
+	// 119 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2c, 0xce, 0x2d, 0xd6,
-	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57, 0x92, 0xe7, 0x62, 0x0f, 0x4e, 0xcd, 0x4b, 0x09, 0xce, 0x2d,
+	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x57, 0xf2, 0xe7, 0x62, 0x0f, 0x4e, 0xcd, 0x4b, 0x09, 0xce, 0x2d,
 	0x16, 0x12, 0xe1, 0x62, 0x0d, 0xc8, 0xc8, 0xcf, 0x4b, 0x95, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c,
-	0x82, 0x70, 0x9c, 0x04, 0x4e, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39,
-	0xc6, 0x19, 0x8f, 0xe5, 0x18, 0x92, 0xd8, 0xc0, 0x3a, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff,
-	0xc4, 0xcf, 0x14, 0x4e, 0x46, 0x00, 0x00, 0x00,
+	0x82, 0x70, 0x84, 0x84, 0xb8, 0x58, 0x9c, 0xf3, 0x53, 0x52, 0x25, 0x98, 0xc0, 0x82, 0x60, 0xb6,
+	0x90, 0x14, 0x17, 0x87, 0x6b, 0x5a, 0x5a, 0x6a, 0x48, 0x66, 0x6e, 0xaa, 0x04, 0x33, 0x58, 0x1c,
+	0xce, 0x77, 0x12, 0x38, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18,
+	0x67, 0x3c, 0x96, 0x63, 0x48, 0x62, 0x03, 0xdb, 0x64, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xe2,
+	0xfd, 0xaa, 0x70, 0x76, 0x00, 0x00, 0x00,
 }
 
 func (m *SendSms) Marshal() (dAtA []byte, err error) {
@@ -108,6 +127,20 @@ func (m *SendSms) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.EffeTime) > 0 {
+		i -= len(m.EffeTime)
+		copy(dAtA[i:], m.EffeTime)
+		i = encodeVarintSms(dAtA, i, uint64(len(m.EffeTime)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Code) > 0 {
+		i -= len(m.Code)
+		copy(dAtA[i:], m.Code)
+		i = encodeVarintSms(dAtA, i, uint64(len(m.Code)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.Phone) > 0 {
 		i -= len(m.Phone)
@@ -137,6 +170,14 @@ func (m *SendSms) Size() (n int) {
 	var l int
 	_ = l
 	l = len(m.Phone)
+	if l > 0 {
+		n += 1 + l + sovSms(uint64(l))
+	}
+	l = len(m.Code)
+	if l > 0 {
+		n += 1 + l + sovSms(uint64(l))
+	}
+	l = len(m.EffeTime)
 	if l > 0 {
 		n += 1 + l + sovSms(uint64(l))
 	}
@@ -212,6 +253,70 @@ func (m *SendSms) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Phone = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSms
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSms
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSms
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Code = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EffeTime", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSms
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSms
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSms
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.EffeTime = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

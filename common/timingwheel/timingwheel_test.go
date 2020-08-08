@@ -1,39 +1,78 @@
 package timingwheel
 
 import (
-	"errors"
+	"HelloMyWorld/common/iredis"
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
+	"github.com/spf13/cast"
 	"math/rand"
+	"os"
+	"os/signal"
+	"syscall"
 	"testing"
 	"time"
 )
 
+func init() {
+	iredis.Init(&iredis.IOptions{
+		Host:     "182.92.239.63",
+		Port:     6379,
+		DB:       0,
+		Password: "root",
+	})
+}
+
 type HTask struct {
 }
 
-func (p *HTask) Init() {
-	fmt.Println("H Task Init...")
+func (p *HTask) UUid() string {
+	return "task_id"
 }
-func (p *HTask) Perform() error {
-	fmt.Println("H Task Perform...")
-	return errors.New("This Error. ")
+
+type HTaskCache struct {
 }
-func (p *HTask) OnStop() error {
-	fmt.Println("H Task Stop...")
+
+func (p *HTaskCache) CacheKey() string {
+	return "sss"
+}
+
+func (p *HTaskCache) OnStop(tasks []*CacheTask, pointer int64) error {
+	str, _ := jsoniter.MarshalToString(tasks)
+	if _, err := iredis.RedisCli.Set(fmt.Sprintf("%s:TEMING_WHEEL_TASK", p.CacheKey()), str, -1).Result(); err != nil {
+		return err
+	}
+	_, err := iredis.RedisCli.Set(fmt.Sprintf("%s:TEMING_WHEEL_POINTER", p.CacheKey()), pointer, -1).Result()
+	return err
+}
+
+func (p *HTaskCache) OnStart() []*CacheTask {
+	tasks := make([]*CacheTask, 0)
+	str, _ := iredis.RedisCli.Get(fmt.Sprintf("%s:TEMING_WHEEL_TASK", p.CacheKey())).Result()
+	_ = jsoniter.UnmarshalFromString(str, &tasks)
+	return tasks
+}
+
+func (p *HTaskCache) ReloadPointer() int64 {
+	str, _ := iredis.RedisCli.Get(fmt.Sprintf("%s:TEMING_WHEEL_POINTER", p.CacheKey())).Result()
+	return cast.ToInt64(str)
+}
+
+func task() error {
+	fmt.Println("this is a task.")
 	return nil
 }
 
 func TestTimingWheel(t *testing.T) {
-	tw := NewTimingWheel(time.Second, 10)
+	tw := NewTimingWheel(&TWOptions{ms: 1, size: 10})
 	tw.Start()
 	for i := 0; i < 100; i++ {
 		t := rand.Int63n(1000)
-		id, err := tw.AddTask(&HTask{}, &Options{
+		err := tw.AddTask(&HTask{}, &Options{
 			TimingTime:    t,
 			IsRepeat:      false,
 			NeedHandleErr: true,
 		})
-		fmt.Println(i, id, err)
+		fmt.Println(i, err)
 	}
 	for {
 		t := time.NewTicker(time.Second)
@@ -47,28 +86,30 @@ func TestTimingWheel(t *testing.T) {
 }
 
 func TestTimingWheel_AddTask(t *testing.T) {
-	tw := NewTimingWheel(time.Second, 10)
+	tw := NewTimingWheel(&TWOptions{ms: time.Second, size: 30, toCache: true, toLoad: true, behavior: &HTaskCache{}})
+	_ = tw.Register("task_id", task)
 	tw.Start()
 	go func() {
+		t := time.NewTicker(time.Second * 30)
 		for {
-			t := time.NewTicker(time.Second * 30)
 			select {
 			case <-t.C:
 				t := rand.Int63n(10)
-				id, err := tw.AddTask(&HTask{}, &Options{
+				err := tw.AddTask(&HTask{}, &Options{
 					TimingTime:    t,
 					IsRepeat:      false,
 					NeedHandleErr: true,
 				})
-				fmt.Println("Auto Add:", t, id, err)
+				fmt.Println("Auto Add:", t, err)
 			}
 		}
 	}()
-	id, err := tw.AddTask(&HTask{}, &Options{
+	_ = tw.AddTask(&HTask{}, &Options{
 		TimingTime: 8,
 		IsRepeat:   true,
 	})
-	fmt.Println(id, err)
-	select {
-	}
+	stopChan := make(chan os.Signal)
+	signal.Notify(stopChan, syscall.SIGINT, syscall.SIGTERM)
+	<-stopChan // wait for SIGINT or SIGTERM
+	tw.Stop()
 }

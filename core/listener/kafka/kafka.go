@@ -6,7 +6,7 @@ import (
 	"HelloMyWorld/common/ikafka"
 	"HelloMyWorld/common/ilogger"
 	"HelloMyWorld/config"
-	"fmt"
+	"HelloMyWorld/core/listener/handle"
 	cluster "github.com/bsm/sarama-cluster"
 	"github.com/gogo/protobuf/proto"
 )
@@ -20,20 +20,17 @@ func RegisterListener() {
 		for {
 			select {
 			case msg := <-c.Messages():
-				err := proto.Unmarshal(msg.Value, entity)
-				if err != nil {
-					ilogger.Ins.Error(err)
-				}
-				switch entity.(type) {
-				case *sms.SendSms:
-					fmt.Println(entity)
+				switch string(msg.Key) {
+				case common.SendSMSKey:
+					entity = &sms.SendSms{}
+					str := string(msg.Value)
+					_ = proto.UnmarshalText(str, entity)
 				default:
-					ilogger.Ins.Warn("Unmatch type in kafka group id: ", common.RegisterGroupID)
 				}
 			case err := <-c.Errors():
 				ilogger.Ins.Error(err)
-				//TODO
 			}
+			handle.Handler(entity)
 		}
 	})
 }

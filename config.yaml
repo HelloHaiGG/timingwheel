@@ -9,7 +9,7 @@ l_topic:
   gateway: "Log-Kafka-Topic-GetWay"
 
 kafka:
-  brokers: ["182.92.239.63:9092"]
+  brokers: ["127.0.0.1:9092"]
   timeout: 5
 
 mysql:
