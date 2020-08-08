@@ -23,7 +23,6 @@ type WrapTask struct {
 	isRepeat bool       //是否是需要重复执行的任务
 	round    int64      //在第几轮被执行
 	slotIdx  int32      //位于第几个时间槽
-	task     TimingTask //任务
 	ops      *Options   //参数
 
 	ctx    context.Context

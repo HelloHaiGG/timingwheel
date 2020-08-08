@@ -63,7 +63,7 @@ func (p *wrapList) get() []*WrapTask {
 		TWCline.taskManager.Delete(task.id)
 		if task.isRepeat {
 			//重复加入
-			if err := TWCline.AddTask(task.task, task.ops); err != nil {
+			if err := TWCline.AddTask(task.id, task.ops); err != nil {
 				//TODO 重复加入失败
 			}
 		}

@@ -29,6 +29,13 @@ func (p *HTask) UUid() string {
 	return "task_id"
 }
 
+type RTask struct {
+}
+
+func (p *RTask) UUid() string {
+	return "repeat_task"
+}
+
 type HTaskCache struct {
 }
 
@@ -62,12 +69,17 @@ func task() error {
 	return nil
 }
 
+func repeatTask() error {
+	fmt.Println("this is a repeat task.")
+	return nil
+}
+
 func TestTimingWheel(t *testing.T) {
 	tw := NewTimingWheel(&TWOptions{ms: 1, size: 10})
 	tw.Start()
 	for i := 0; i < 100; i++ {
 		t := rand.Int63n(1000)
-		err := tw.AddTask(&HTask{}, &Options{
+		err := tw.AddTask((&HTask{}).UUid(), &Options{
 			TimingTime:    t,
 			IsRepeat:      false,
 			NeedHandleErr: true,
@@ -88,6 +100,7 @@ func TestTimingWheel(t *testing.T) {
 func TestTimingWheel_AddTask(t *testing.T) {
 	tw := NewTimingWheel(&TWOptions{ms: time.Second, size: 30, toCache: true, toLoad: true, behavior: &HTaskCache{}})
 	_ = tw.Register("task_id", task)
+	_ = tw.Register("repeat_task", repeatTask)
 	tw.Start()
 	go func() {
 		t := time.NewTicker(time.Second * 30)
@@ -95,7 +108,7 @@ func TestTimingWheel_AddTask(t *testing.T) {
 			select {
 			case <-t.C:
 				t := rand.Int63n(10)
-				err := tw.AddTask(&HTask{}, &Options{
+				err := tw.AddTask((&HTask{}).UUid(), &Options{
 					TimingTime:    t,
 					IsRepeat:      false,
 					NeedHandleErr: true,
@@ -104,7 +117,7 @@ func TestTimingWheel_AddTask(t *testing.T) {
 			}
 		}
 	}()
-	_ = tw.AddTask(&HTask{}, &Options{
+	_ = tw.AddTask((&RTask{}).UUid(), &Options{
 		TimingTime: 8,
 		IsRepeat:   true,
 	})

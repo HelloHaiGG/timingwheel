@@ -43,10 +43,14 @@ type TimingWheel struct {
 	//err-handle
 	handleErr chan WrapError
 
-	toCache  bool //是否需要此久化
-	toLoad   bool //是否需要加载持久化的数据
+	toCache bool //是否需要此久化
+	toLoad  bool //是否需要加载持久化的数据
 
 	behavior CacheBehavior
+
+	loadingSuc bool
+	locker     *sync.Mutex
+	loading    *sync.Cond
 }
 
 type TWOptions struct {
@@ -73,7 +77,6 @@ type CacheBehavior interface {
 	ReloadPointer() int64
 }
 
-
 //任务持久化结构
 type CacheTask struct {
 	Id             string `json:"id"`
@@ -98,6 +101,7 @@ func NewTimingWheel(opt *TWOptions) *TimingWheel {
 	one.Do(func() {
 		ctx, cancel := context.WithCancel(context.Background())
 		if TWCline == nil {
+			locker := &sync.Mutex{}
 			TWCline = &TimingWheel{
 				tickMs:      opt.ms,
 				wheelSize:   opt.size,
@@ -112,6 +116,8 @@ func NewTimingWheel(opt *TWOptions) *TimingWheel {
 				toCache:     opt.toCache,
 				toLoad:      opt.toLoad,
 				behavior:    opt.behavior,
+				locker:      locker,
+				loading:     sync.NewCond(locker),
 			}
 		}
 	})
@@ -119,7 +125,7 @@ func NewTimingWheel(opt *TWOptions) *TimingWheel {
 }
 
 //添加任务
-func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (err error) {
+func (p *TimingWheel) AddTask(task string, opts *Options) (err error) {
 	if !p.started {
 		err = errors.New("Timing-Wheel Not Working. You Should Start Timing-Wheel First. ")
 	}
@@ -127,13 +133,24 @@ func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (err error) {
 		err = errors.New("Timing-Wheel Options Is Null! ")
 		return
 	}
+	if !p.loadingSuc {
+		log.Println("witing loading cache. ")
+		p.loading.L.Lock()
+		defer p.loading.L.Unlock()
+		p.loading.Wait()
+		log.Println("get loading cache over. ")
+	}
+	//判断任务是否存在
+	if _, ok := p.taskManager.Load(task); ok {
+		log.Println("Add a task with existing. ")
+		return
+	}
 	ctx, cancel := context.WithCancel(context.Background())
 	wrapTask := &WrapTask{
-		id:       task.UUid(),
+		id:       task,
 		isRepeat: opts.IsRepeat,
 		round:    opts.TimingTime / p.wheelSize,                          //计算出所在圈
 		slotIdx:  int32((p.currentTime + opts.TimingTime) % p.wheelSize), //计算出所在时间槽
-		task:     task,
 		ctx:      ctx,
 		cancel:   cancel,
 		ops:      opts,
@@ -141,7 +158,7 @@ func (p *TimingWheel) AddTask(task TimingTask, opts *Options) (err error) {
 	}
 	p.addToList(wrapTask)
 	//添加到管理器
-	p.taskManager.Store(task.UUid(), wrapTask)
+	p.taskManager.Store(task, wrapTask)
 	return
 }
 
@@ -174,7 +191,6 @@ func (p *TimingWheel) DelTask(id string) bool {
 	if task, ok := p.taskManager.Load(id); !ok {
 		return false
 	} else {
-		_ = task.(*WrapTask).task.OnStop()
 		task.(*WrapTask).cancel()
 	}
 	if p.delTask(id) {
@@ -188,6 +204,7 @@ func (p *TimingWheel) Start() {
 	p.started = true
 	if p.toLoad {
 		p.loadCache()
+		log.Println("load cache task over.")
 	}
 	//时间轮指针驱动
 	go p.ticker()
@@ -208,9 +225,10 @@ func (p *TimingWheel) ticker() {
 	for {
 		select {
 		case <-p.timer.C:
-			p.currentTime = (p.currentTime + 1) % p.wheelSize
+			p.currentTime = (p.currentTime) % p.wheelSize
 			//获取到走针指向的槽的到期任务
 			tasks := p.slots[p.currentTime].get()
+			p.currentTime++
 			//执行任务
 			for _, v := range tasks {
 				wg.Add(1)
@@ -220,7 +238,7 @@ func (p *TimingWheel) ticker() {
 						wg.Done()
 						return
 					default:
-						if err = p.perform(v.task.UUid()); err != nil && v.ops.NeedHandleErr {
+						if err = p.perform(v.id); err != nil && v.ops.NeedHandleErr {
 							p.handleErr <- WrapError{v.id, err}
 						}
 						wg.Done()
@@ -249,6 +267,7 @@ func (p *TimingWheel) cache() {
 		})
 		return true
 	})
+	p.loadingSuc = false
 	err := p.behavior.OnStop(tasks, p.currentTime)
 	if err != nil {
 		log.Println("Timing-Wheel cache to task err: ", err)
@@ -257,6 +276,7 @@ func (p *TimingWheel) cache() {
 }
 
 func (p *TimingWheel) loadCache() {
+	log.Println("load cache task")
 	tasks := p.behavior.OnStart()
 	p.currentTime = p.behavior.ReloadPointer()
 	now := time.Now().Unix()
@@ -271,6 +291,7 @@ func (p *TimingWheel) loadCache() {
 						p.handleErr <- WrapError{Err: err, TaskId: task.Id}
 					}
 				}
+				continue
 			}
 			//已经过期且任务为循环执行的任务
 			if task.SaveTimeAt+task.TimingTime <= now && task.IsRepeat {
@@ -284,10 +305,30 @@ func (p *TimingWheel) loadCache() {
 						}
 					}
 				}
-				//将该任务添加到任务管理器
-				p.taskManager.Store(task.Id,&WrapTask{})
 			}
+			// 未过期的任务添加到时间轮
+			ctx, cancel := context.WithCancel(context.Background())
+			t := &WrapTask{
+				id:       task.Id,
+				isRepeat: task.IsRepeat,
+				round:    task.TimingTime / p.wheelSize,                                                //计算出所在圈
+				slotIdx:  int32((p.currentTime + (now-task.SaveTimeAt)%task.TimingTime) % p.wheelSize), //计算出所在时间槽
+				ctx:      ctx,
+				cancel:   cancel,
+				ops: &Options{
+					TimingTime:    task.TimingTime,
+					IsRepeat:      task.IsRepeat,
+					NeedHandleErr: task.NeedHandlerErr,
+				},
+				createAt: time.Now().Unix(),
+			}
+			p.addToList(t)
+			p.taskManager.Store(task.Id, t)
 		}
+		defer func() {
+			p.loading.Signal()
+			p.loadingSuc = true
+		}()
 	}()
 }
 
