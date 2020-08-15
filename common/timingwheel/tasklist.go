@@ -88,6 +88,8 @@ func (p *wrapList) CatOutTask() []*WrapTask {
 		}
 	}
 	if index > -1 {
+		p.Lock()
+		defer p.Unlock()
 		sub := p.list[:index+1]
 		p.list = p.list[index+1:]
 		return sub

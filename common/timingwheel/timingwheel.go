@@ -232,18 +232,18 @@ func (p *TimingWheel) ticker() {
 			//执行任务
 			for _, v := range tasks {
 				wg.Add(1)
-				go func(ctx context.Context) { //TODO 需要使用协程池
+				go func(task *WrapTask) { //TODO 需要使用协程池
 					select {
-					case <-ctx.Done():
+					case <-task.ctx.Done():
 						wg.Done()
 						return
 					default:
-						if err = p.perform(v.id); err != nil && v.ops.NeedHandleErr {
-							p.handleErr <- WrapError{v.id, err}
+						if err = p.perform(task.id); err != nil && task.ops.NeedHandleErr {
+							p.handleErr <- WrapError{task.id, err}
 						}
 						wg.Done()
 					}
-				}(v.ctx)
+				}(v)
 			}
 		case <-p.cxt.Done():
 			//等待所有任务执行结束
