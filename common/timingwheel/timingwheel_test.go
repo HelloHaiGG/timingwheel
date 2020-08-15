@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"os"
 	"os/signal"
+	"runtime/trace"
 	"syscall"
 	"testing"
 	"time"
@@ -74,34 +75,18 @@ func repeatTask() error {
 	return nil
 }
 
-func TestTimingWheel(t *testing.T) {
-	tw := NewTimingWheel(&TWOptions{ms: 1, size: 10})
-	tw.Start()
-	for i := 0; i < 100; i++ {
-		t := rand.Int63n(1000)
-		err := tw.AddTask((&HTask{}).UUid(), &Options{
-			TimingTime:    t,
-			IsRepeat:      false,
-			NeedHandleErr: true,
-		})
-		fmt.Println(i, err)
-	}
-	for {
-		t := time.NewTicker(time.Second)
-		select {
-		case <-t.C:
-			fmt.Println(tw.currentTime)
-		case err := <-tw.handleErr:
-			fmt.Println(err)
-		}
-	}
-}
 
 func TestTimingWheel_AddTask(t *testing.T) {
+	f, _ := os.Create("tw.output")
+	defer f.Close()
+	_ = trace.Start(f)
+	defer trace.Stop()
 	tw := NewTimingWheel(&TWOptions{ms: time.Second, size: 30, toCache: true, toLoad: true, behavior: &HTaskCache{}})
 	_ = tw.Register("task_id", task)
 	_ = tw.Register("repeat_task", repeatTask)
+	fmt.Println("start...")
 	tw.Start()
+	fmt.Println("start suc...")
 	go func() {
 		t := time.NewTicker(time.Second * 30)
 		for {
