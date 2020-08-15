@@ -15,6 +15,7 @@
         <method importPath="math/rand" receiver="*Rand" name="Read" />
         <method importPath="github.com/bsm/sarama-cluster" receiver="*Consumer" name="Close" />
         <method importPath="github.com/Shopify/sarama" receiver="Consumer" name="Close" />
+        <method importPath="os" receiver="*File" name="Close" />
       </methods>
     </inspection_tool>
   </profile>
