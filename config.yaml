@@ -9,7 +9,7 @@ l_topic:
   gateway: "Log-Kafka-Topic-GetWay"
 
 kafka:
-  brokers: ["127.0.0.1:9092"]
+  brokers: ["b-1.hudi-workshop-kafkaclu.vuyy8d.c2.kafka.us-east-2.amazonaws.com:9092"]
   timeout: 5
 
 mysql:

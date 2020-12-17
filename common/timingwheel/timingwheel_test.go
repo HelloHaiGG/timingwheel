@@ -75,7 +75,6 @@ func repeatTask() error {
 	return nil
 }
 
-
 func TestTimingWheel_AddTask(t *testing.T) {
 	f, _ := os.Create("tw.output")
 	defer f.Close()
@@ -88,12 +87,12 @@ func TestTimingWheel_AddTask(t *testing.T) {
 	tw.Start()
 	fmt.Println("start suc...")
 	go func() {
-		t := time.NewTicker(time.Second * 30)
+		t := time.NewTicker(time.Millisecond * 300)
 		for {
 			select {
 			case <-t.C:
-				t := rand.Int63n(10)
-				err := tw.AddTask((&HTask{}).UUid(), &Options{
+				t := rand.Int63n(100)
+				err := tw.AddTask((&HTask{}).UUid() + time.Now().String(), &Options{
 					TimingTime:    t,
 					IsRepeat:      false,
 					NeedHandleErr: true,

@@ -26,6 +26,7 @@ require (
 	github.com/hpcloud/tail v1.0.0
 	github.com/jinzhu/gorm v1.9.12
 	github.com/jonboulle/clockwork v0.1.0 // indirect
+	github.com/jordan-wright/email v0.0.0-20200602115436-fd8a7622303e
 	github.com/json-iterator/go v1.1.9
 	github.com/mojocn/base64Captcha v1.2.2
 	github.com/natefinch/lumberjack v2.0.0+incompatible
@@ -49,6 +50,7 @@ require (
 	google.golang.org/grpc v1.26.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.2.8
+	gorm.io/gorm v1.20.0 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
 
